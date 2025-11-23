@@ -357,8 +357,13 @@ export default function SmokeBackground() {
     if (!context) return;
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      // Get the parent container (hero-section) dimensions
+      const parent = canvas.parentElement;
+      const width = parent ? parent.clientWidth : window.innerWidth;
+      const height = parent ? parent.clientHeight : window.innerHeight;
+      
+      canvas.width = width;
+      canvas.height = height;
       
       if (pathControllerRef.current) {
         pathControllerRef.current.stop();
@@ -390,7 +395,7 @@ export default function SmokeBackground() {
     <canvas
       ref={canvasRef}
       style={{
-        position: 'fixed',
+        position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',

@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import SVGComponent from './SVGComponent'
 import SmokeBackground from './SmokeBackground'
+import WinesSection from './WinesSection'
+import CartModal from './CartModal'
+import CartIcon from './CartIcon'
 
 function App() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -36,6 +39,7 @@ function App() {
   };
 
   return (<>
+  <CartModal />
   {/* Film container with border and effects */}
   <div className="film-container-wrapper">
     {/* Film border with sprocket holes */}
@@ -81,91 +85,73 @@ function App() {
               Contact
             </a>
           </div>
+          <div className="cart-icon-wrapper">
+            <CartIcon />
+          </div>
         </div>
       </nav>
 
-      {/* Hero Header */}
-      <div 
-        className="absolute top-[15%] left-0 right-0 text-center z-10 select-none hero-text-container"
-        style={{ fontFamily: '"Playfair Display", serif' }}
-      >
-        <h1 className="text-[5rem] md:text-[7rem] font-bold tracking-[0.15em] leading-none hero-text">
-          <span className="hero-word" data-word="IN">IN</span>
-          {' '}
-          <span className="hero-word hero-word-vino" data-word="VINO">VINO</span>
-          {' '}
-          <span className="hero-word" data-word="VERITAS">VERITAS</span>
-        </h1>
-      </div>
+      {/* Hero Section */}
+      <section className="hero-section">
+        {/* Noir wall background - base #1a1a1a */}
+        <div className="hero-background">
+          {/* Light fog top - #2b2b2b at 6% opacity */}
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(to bottom, rgba(43, 43, 43, 0.06) 0%, transparent 100%)',
+            }}
+          ></div>
+          {/* Deep edges vignette - #0e0e0e at 50% gradient */}
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'radial-gradient(ellipse at center, transparent 0%, rgba(14, 14, 14, 0.5) 100%)',
+            }}
+          ></div>
+        </div>
 
-      {/* Noir wall background - base #1a1a1a */}
-      <div 
-        className="fixed inset-0 -z-10"
-        style={{ 
-          backgroundColor: '#1a1a1a',
-        }}
-      >
-        {/* Light fog top - #2b2b2b at 6% opacity */}
+        {/* Animated smoke background */}
+        <SmokeBackground />
+
+        {/* Stage Table - Glossy #111 strip */}
+        <div className="hero-stage-table">
+          {/* Glossy Reflection Gradient */}
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(to bottom, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 20%, transparent 60%)',
+            }}
+          ></div>
+        </div>
+
+        {/* Glass container - sits ON the stage table */}
+        <div className="hero-glass-container">
+          <SVGComponent style={{ width: '100%', height: 'auto', position: 'relative', zIndex: 2 }} />
+        </div>
+
         <div 
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(43, 43, 43, 0.06) 0%, transparent 100%)',
-          }}
-        ></div>
-        {/* Deep edges vignette - #0e0e0e at 50% gradient */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at center, transparent 0%, rgba(14, 14, 14, 0.5) 100%)',
-          }}
-        ></div>
-      </div>
+          className="hero-text-container"
+          style={{ fontFamily: '"Playfair Display", serif' }}
+        >
+          <h1 className="text-[5rem] md:text-[7rem] font-bold tracking-[0.15em] leading-none hero-text">
+            <span className="hero-word" data-word="IN">IN</span>
+            {' '}
+            <span className="hero-word hero-word-vino" data-word="VINO">VINO</span>
+            {' '}
+            <span className="hero-word" data-word="VERITAS">VERITAS</span>
+          </h1>
+        </div>
+      </section>
 
-      {/* Animated smoke background */}
-      <SmokeBackground />
-    {/* Stage Table - Glossy #111 strip */}
-    <div 
-      className="fixed left-0 right-0"
-      style={{
-        bottom: '10%',
-        height: '12%',
-        backgroundColor: '#111111',
-        zIndex: -8,
-        boxShadow: '0 -2px 10px rgba(255,255,255,0.05) inset, 0 5px 20px rgba(0,0,0,0.8)',
-        borderTop: '1px solid rgba(255,255,255,0.15)', // Bevel effect
-        transform: 'perspective(1000px) rotateX(5deg)', // Slight tilt for dimension
-        transformOrigin: 'bottom',
-      }}
-    >
-      {/* Glossy Reflection Gradient */}
+      {/* Wines Section */}
+      <WinesSection />
+
+      {/* Spotlight Effect Layer */}
       <div 
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(to bottom, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 20%, transparent 60%)',
-        }}
-      ></div>
-    </div>
-
-    {/* Glass container - sits ON the stage table */}
-    <div 
-      className='fixed film-container'
-      style={{
-        bottom: '10%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '90%',
-        maxWidth: '520px',
-        zIndex: -7,
-      }}
-    >
-      <SVGComponent style={{ width: '100%', height: 'auto', position: 'relative', zIndex: 2 }} />
-    </div>
-    
-    {/* Spotlight Effect Layer */}
-    <div 
-      className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 2, mixBlendMode: 'overlay' }}
-    >
+        className="fixed inset-0 pointer-events-none"
+        style={{ zIndex: 15, mixBlendMode: 'overlay' }}
+      >
       <svg width="100%" height="100%" style={{ overflow: 'visible' }}>
         <defs>
           {/* Spot Gradient - Bright center to soft gray to transparent */}

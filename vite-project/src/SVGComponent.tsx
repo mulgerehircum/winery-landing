@@ -14,9 +14,55 @@ const SVGComponent: React.FC<SVGComponentProps> = ({ brickImage, liquidHeight = 
   const glassBottom = 340;
   const glassHeight = glassBottom - glassTop;
   const liquidTopY = glassBottom - (glassHeight * liquidHeight / 100);
+
+  // Wave animation path definition
+  // A looping wave pattern that is wide enough to scroll horizontally
+  // Pattern width: 512px. Total width: 1536px (3 cycles) to ensure seamless scrolling
+  // We construct using Q for the first segment and T for smooth continuation
+  // Each 512px cycle consists of two 256px arcs (Up, then Down)
+  const wavePath = `
+    M 0 0 
+    Q 128 10 256 0 T 512 0
+    T 768 0 T 1024 0
+    T 1280 0 T 1536 0
+    V 512 
+    H 0 
+    Z
+  `;
   
+  const [ripples, setRipples] = React.useState<Array<{id: number, x: number, y: number}>>([]);
+  const svgRef = React.useRef<SVGSVGElement>(null);
+
+  const handleSVGClick = (e: React.MouseEvent<SVGSVGElement>) => {
+    if (!svgRef.current) return;
+
+    const pt = svgRef.current.createSVGPoint();
+    pt.x = e.clientX;
+    pt.y = e.clientY;
+    const svgP = pt.matrixTransform(svgRef.current.getScreenCTM()?.inverse());
+
+    const newRipple = {
+      id: Date.now(),
+      x: svgP.x,
+      y: svgP.y
+    };
+
+    setRipples(prev => [...prev, newRipple]);
+
+    // Remove ripple after animation
+    setTimeout(() => {
+      setRipples(prev => prev.filter(r => r.id !== newRipple.id));
+    }, 1500);
+    
+    if (props.onClick) {
+      props.onClick(e);
+    }
+  };
+
   return (
   <svg
+    ref={svgRef}
+    onClick={handleSVGClick}
     viewBox="0 0 512 512"
     preserveAspectRatio="xMidYMid meet"
     id="svg1"
@@ -25,6 +71,30 @@ const SVGComponent: React.FC<SVGComponentProps> = ({ brickImage, liquidHeight = 
     {...props}
   >
     <defs id="defs1">
+      <style>
+        {`
+          @keyframes wave-flow {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-512px); }
+          }
+          .liquid-wave-1 {
+            animation: wave-flow 3s linear infinite;
+          }
+          .liquid-wave-2 {
+            animation: wave-flow 5s linear infinite reverse;
+            opacity: 0.7;
+          }
+          @keyframes ripple-expand {
+            0% { r: 0; opacity: 0.6; stroke-width: 3px; }
+            100% { r: 120; opacity: 0; stroke-width: 0px; }
+          }
+          .wine-ripple-circle {
+            animation: ripple-expand 1.5s ease-out forwards;
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.4);
+          }
+        `}
+      </style>
       {/* Glass color filter - #f2f2f2 */}
       <filter id="glass-color" x="-50%" y="-50%" width="200%" height="200%">
         <feColorMatrix type="matrix" 
@@ -256,10 +326,18 @@ const SVGComponent: React.FC<SVGComponentProps> = ({ brickImage, liquidHeight = 
            z" />
       </clipPath>
       
-      {/* Mask to control liquid height */}
+      {/* Mask to control liquid height with animation */}
       <mask id="liquid-height-mask">
         <rect width="512" height="512" fill="black" />
-        <rect x="0" y={liquidTopY} width="512" height={512 - liquidTopY} fill="white" />
+        <g transform={`translate(0, ${liquidTopY})`}>
+          {/* Two overlapping waves for liquid effect */}
+          <g className="liquid-wave-1">
+             <path d={wavePath} fill="white" />
+          </g>
+          <g className="liquid-wave-2">
+             <path d={wavePath} fill="white" transform="translate(-200, 0)" />
+          </g>
+        </g>
       </mask>
     </defs>
     <g
@@ -314,6 +392,17 @@ const SVGComponent: React.FC<SVGComponentProps> = ({ brickImage, liquidHeight = 
           fill="#e11122"
           opacity="0.12"
         />
+        
+        {/* Ripples - clipped to liquid area */}
+        {ripples.map(ripple => (
+          <circle
+            key={ripple.id}
+            cx={ripple.x}
+            cy={ripple.y}
+            r="0"
+            className="wine-ripple-circle"
+          />
+        ))}
       </g>
     </g>
   </svg>
