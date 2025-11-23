@@ -53,37 +53,24 @@ function App() {
       {/* Navbar */}
       <nav className="navbar">
         <div className="navbar-content">
-          <div className="navbar-links">
-            <a 
-              href="#" 
-              className={`navbar-link ${activeLink === 'Wines' ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveLink('Wines');
-              }}
-            >
-              Wines
-            </a>
-            <a 
-              href="#" 
-              className={`navbar-link ${activeLink === 'About' ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveLink('About');
-              }}
-            >
-              About
-            </a>
-            <a 
-              href="#" 
-              className={`navbar-link ${activeLink === 'Contact' ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveLink('Contact');
-              }}
-            >
-              Contact
-            </a>
+          <div className="col-start-2 flex items-center gap-6 md:gap-10 pt-4 md:pt-2">
+            {['Wines', 'About', 'Contact'].map((link) => (
+              <a 
+                key={link}
+                href="#" 
+                className={`font-['Playfair_Display',serif] text-[0.9rem] md:text-base font-normal tracking-[0.08em] no-underline transition-colors duration-300 ease-in-out bg-transparent outline-none border-none cursor-pointer [-webkit-tap-highlight-color:transparent] ${
+                  activeLink === link 
+                    ? 'text-[#bd0d1a] [text-shadow:0_-8px_35px_rgba(189,13,26,0.5)]' 
+                    : 'text-[rgba(255,255,255,0.65)] [text-shadow:0_-8px_35px_rgba(255,255,255,0.25)] hover:text-[rgba(255,255,255,0.85)] hover:[text-shadow:0_-8px_35px_rgba(255,255,255,0.35)]'
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveLink(link);
+                }}
+              >
+                {link}
+              </a>
+            ))}
           </div>
           <div className="cart-icon-wrapper">
             <CartIcon />

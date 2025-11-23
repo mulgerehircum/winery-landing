@@ -584,42 +584,9 @@
   transition: color 0.3s ease;
 }
 
-.navbar-links {
-  display: flex;
-  gap: 2.5rem;
-  align-items: center;
-  grid-column: 2;
-}
-
 .cart-icon-wrapper {
   justify-self: end;
   grid-column: 3;
-}
-
-.navbar-link {
-  font-family: "Playfair Display", serif;
-  font-size: 1rem;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.65);
-  text-decoration: none;
-  text-shadow: 0 -8px 35px rgba(255, 255, 255, 0.25);
-  transition: color 0.3s ease;
-  background: transparent;
-  outline: none;
-  border: none;
-  -webkit-tap-highlight-color: transparent;
-  cursor: pointer;
-}
-
-.navbar-link:hover {
-  color: rgba(255, 255, 255, 0.85);
-  text-shadow: 0 -8px 35px rgba(255, 255, 255, 0.35);
-}
-
-.navbar-link.active {
-  color: #bd0d1a;
-  text-shadow: 0 -8px 35px rgba(189, 13, 26, 0.5);
 }
 
 @media (max-width: 768px) {
@@ -629,14 +596,6 @@
 
   .navbar-logo {
     font-size: 1.25rem;
-  }
-
-  .navbar-links {
-    gap: 1.5rem;
-  }
-
-  .navbar-link {
-    font-size: 0.9rem;
   }
 }
 
