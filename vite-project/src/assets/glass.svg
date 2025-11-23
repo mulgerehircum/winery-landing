@@ -1,0 +1,52 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 512 512"
+  role="img"
+  aria-labelledby="glassTitle"
+>
+  <title id="glassTitle">Wine glass</title>
+
+  <defs>
+    <!-- Inner bowl shape: use this to clip the liquid -->
+    <clipPath id="glass-liquid-clip" clipPathUnits="userSpaceOnUse">
+      <path
+        d="m 336.90131,292.63457
+           c -21.1,23.4 -49.8,36.2 -80.9,36.2
+             -31.1,0 -59.8,-12.9 -80.9,-36.2
+             -21.1,-23.4 -31.3,-53.7 -28.8,-85.3
+           l 12.1,-154.299997
+           h 195.2
+           l 12.1,154.299997
+           c 2.5,31.7 -7.8,62 -28.8,85.3
+           z"
+      />
+    </clipPath>
+  </defs>
+
+  <!-- Glass outline - Outer Border -->
+  <path
+    d="m405.6,202.8
+       l-13.6,-173
+       c-0.8,-10.6 -9.5,-18.8 -19.9,-18.8
+       h-232.1
+       c-10.4,0 -19.1,8.2 -19.9,18.8
+       l-13.6,173
+       c-3.3,42.6 11,84.9 39.3,116.3
+       23.8,26.3 55.9,43.2 90.3,48
+       v93.1
+       h-53.2
+       c-11,0 -20,9.1 -20,20.4
+       0,11.3 8.9,20.4 20,20.4
+       h146.4
+       c11,0 20,-9.1 20,-20.4
+       0,-11.3 -8.9,-20.4 -20,-20.4
+       h-53.3
+       v-93.1
+       c34.4,-4.8 66.5,-21.7 90.3,-48
+       28.3,-31.3 42.6,-73.7 39.3,-116.3
+       z"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="4"
+  />
+</svg>
