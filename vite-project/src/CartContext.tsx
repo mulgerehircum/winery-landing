@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, type ReactNode, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback } from 'react';
+import type { ReactNode } from 'react';
 import type { WineCardData } from './WineCard';
 
 export interface CartItem extends WineCardData {
