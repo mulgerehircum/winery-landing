@@ -62,7 +62,6 @@ const wines: WineCardData[] = [
 ];
 
 export default function WinesSection() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
   const startXRef = useRef(0);
@@ -74,6 +73,16 @@ export default function WinesSection() {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+
+    // Initial scroll to center (middle card)
+    const scrollToCenter = () => {
+      container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2;
+    };
+    
+    // Execute after layout
+    requestAnimationFrame(scrollToCenter);
+    // Fallback for any layout shifts
+    const timer = setTimeout(scrollToCenter, 100);
 
     const handleMouseDown = (e: MouseEvent) => {
       isDraggingRef.current = true;
@@ -114,6 +123,7 @@ export default function WinesSection() {
     container.style.cursor = 'grab';
 
     return () => {
+      clearTimeout(timer);
       container.removeEventListener('mousedown', handleMouseDown);
       document.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('mousemove', handleMouseMove);
@@ -128,19 +138,17 @@ export default function WinesSection() {
   return (
     <div className="wines-section">
       <div className="wines-container" ref={containerRef}>
-        <div className="wines-scroll" ref={scrollContainerRef}>
-          <div className="wines-spacer"></div>
-          {wines.map((wine) => (
-            <WineCard 
-              key={wine.id}
-              wine={wine}
-              isFlipped={flippedId === wine.id}
-              onClick={handleCardClick}
-              onReserve={addToCart}
-            />
-          ))}
-          <div className="wines-spacer"></div>
-        </div>
+        <div className="wines-spacer"></div>
+        {wines.map((wine) => (
+          <WineCard 
+            key={wine.id}
+            wine={wine}
+            isFlipped={flippedId === wine.id}
+            onClick={handleCardClick}
+            onReserve={addToCart}
+          />
+        ))}
+        <div className="wines-spacer"></div>
       </div>
     </div>
   );

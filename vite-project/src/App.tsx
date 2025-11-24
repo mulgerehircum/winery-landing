@@ -53,7 +53,7 @@ function App() {
       {/* Navbar */}
       <nav className="navbar">
         <div className="navbar-content">
-          <div className="col-start-2 flex items-center gap-6 md:gap-10 pt-4 md:pt-2">
+          <div className="col-start-2 flex items-center justify-center gap-4 md:gap-10 pt-2 md:pt-2">
             {['Wines', 'About', 'Contact'].map((link) => (
               <a 
                 key={link}
@@ -115,13 +115,19 @@ function App() {
         {/* Glass container - sits ON the stage table */}
         <div className="hero-glass-container">
           <SVGComponent style={{ width: '100%', height: 'auto', position: 'relative', zIndex: 2 }} />
+          
+          <div className="cta-container">
+            <button className="cta-button">
+              Enter the Cellar
+            </button>
+          </div>
         </div>
 
         <div 
           className="hero-text-container"
           style={{ fontFamily: '"Playfair Display", serif' }}
         >
-          <h1 className="text-[5rem] md:text-[7rem] font-bold tracking-[0.15em] leading-none hero-text">
+          <h1 className="text-[3.5rem] sm:text-[5rem] md:text-[7rem] font-bold tracking-[0.15em] leading-none hero-text">
             <span className="hero-word" data-word="IN">IN</span>
             {' '}
             <span className="hero-word hero-word-vino" data-word="VINO">VINO</span>

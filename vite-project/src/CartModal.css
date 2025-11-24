@@ -24,6 +24,18 @@
   animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@media (max-width: 768px) {
+  .cart-header {
+    padding: 1rem 1.5rem;
+  }
+  .cart-items {
+    padding: 1rem 1.5rem;
+  }
+  .cart-footer {
+    padding: 1.5rem;
+  }
+}
+
 .cart-header {
   padding: 1.5rem 2rem;
   display: flex;
