@@ -3,6 +3,7 @@ import './App.css'
 import SVGComponent from './SVGComponent'
 import SmokeBackground from './SmokeBackground'
 import WinesSection from './WinesSection'
+import AboutSection from './AboutSection'
 import CartModal from './CartModal'
 import CartIcon from './CartIcon'
 
@@ -139,6 +140,9 @@ function App() {
 
       {/* Wines Section */}
       <WinesSection />
+
+      {/* About Section - Alternating Layout */}
+      <AboutSection />
 
       {/* Spotlight Effect Layer */}
       <div 
