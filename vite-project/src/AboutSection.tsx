@@ -1,10 +1,8 @@
 import { memo } from 'react';
 
-// Using the brick textures for now as placeholders, but in a real app these would be 
-// specific photography for each section (Vineyard, Cellar, Tradition)
-import vineyardImg from './assets/Bricks023_4K-JPG/Bricks023_4K_Color.jpg';
-import cellarImg from './assets/Bricks023_4K-JPG/Bricks023_4K_Displacement.jpg';
-import traditionImg from './assets/Bricks023_4K-JPG/Bricks023_4K_NormalGL.jpg';
+import vineyardImg from './assets/About/vineyard.jpg';
+import cellarImg from './assets/About/cellar.jpg';
+import traditionImg from './assets/About/tradition.jpg';
 
 interface ContentBlock {
   id: number;
@@ -47,7 +45,7 @@ const AboutSection = memo(() => {
     <section className="about-section">
       <div className="about-container">
         {content.map((block, index) => (
-          <div key={block.id} className={`about-block ${index % 2 !== 0 ? 'reversed' : ''}`}>
+          <div key={block.id} className={`about-block about-block-${block.id} ${index % 2 !== 0 ? 'reversed' : ''}`}>
             <div className="about-image-wrapper">
               <div className="about-image-inner">
                 <img src={block.image} alt={block.imageAlt} loading="lazy" />

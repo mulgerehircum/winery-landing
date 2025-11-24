@@ -1202,6 +1202,14 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.7s ease;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Mitigate aliasing/noise on the high-res Cellar image */
+.about-block-2 .about-image-inner img {
+  filter: blur(0.5px);
 }
 
 .about-block:hover .about-image-inner img {
