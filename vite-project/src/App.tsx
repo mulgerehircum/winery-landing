@@ -145,7 +145,7 @@ function App() {
 
       {/* Spotlight Effect Layer */}
       <div 
-        className="fixed inset-0 pointer-events-none"
+        className="fixed inset-0 pointer-events-none hidden xl:block"
         style={{ zIndex: 15, mixBlendMode: 'overlay' }}
       >
       <svg width="100%" height="100%" style={{ overflow: 'visible' }}>
