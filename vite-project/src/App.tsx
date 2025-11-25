@@ -50,36 +50,36 @@ function App() {
     <div className="absolute top-0 bottom-0 left-0 w-[30px] md:w-[15px] bg-black z-10 film-border-left"></div>
     <div className="absolute top-0 bottom-0 right-0 w-[30px] md:w-[15px] bg-black z-10 film-border-right"></div>
     
-    {/* Main content area */}
-    <div className="absolute top-[30px] left-[30px] right-[30px] bottom-[30px] md:top-[15px] md:left-[15px] md:right-[15px] md:bottom-[15px] overflow-y-auto overflow-x-hidden film-content">
-      {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-20 p-[calc(1.5rem+8px)_2rem_1.5rem_2rem] md:p-4 md:px-6 pointer-events-auto navbar">
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center max-w-[1280px] mx-auto navbar-content">
-          <div className="col-start-2 flex items-center justify-center gap-4 md:gap-10 pt-2 md:pt-2">
-            {['Wines', 'About', 'Contact'].map((link) => (
-              <a 
-                key={link}
-                href="#" 
-                className={`font-['Playfair_Display',serif] text-[0.9rem] md:text-base font-normal tracking-[0.08em] no-underline transition-colors duration-300 ease-in-out bg-transparent outline-none border-none cursor-pointer [-webkit-tap-highlight-color:transparent] ${
-                  activeLink === link 
-                    ? 'text-[#bd0d1a] [text-shadow:0_-8px_35px_rgba(189,13,26,0.5)]' 
-                    : 'text-[rgba(255,255,255,0.65)] [text-shadow:0_-8px_35px_rgba(255,255,255,0.25)] hover:text-[rgba(255,255,255,0.85)] hover:[text-shadow:0_-8px_35px_rgba(255,255,255,0.35)]'
-                }`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActiveLink(link);
-                }}
-              >
-                {link}
-              </a>
-            ))}
-          </div>
-          <div className="justify-self-end col-start-3 cart-icon-wrapper">
-            <CartIcon />
-          </div>
+    {/* Navbar */}
+    <nav className="fixed top-0 left-0 right-0 z-20 p-[calc(1.5rem+8px)_2rem_1.5rem_2rem] md:p-4 md:px-6 pointer-events-auto navbar">
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center max-w-[1280px] mx-auto navbar-content">
+        <div className="col-start-2 flex items-center justify-center gap-4 md:gap-10 pt-2 md:pt-2">
+          {['Wines', 'About', 'Contact'].map((link) => (
+            <a 
+              key={link}
+              href="#" 
+              className={`font-['Playfair_Display',serif] text-[0.9rem] md:text-base font-normal tracking-[0.08em] no-underline transition-colors duration-300 ease-in-out bg-transparent outline-none border-none cursor-pointer [-webkit-tap-highlight-color:transparent] ${
+                activeLink === link 
+                  ? 'text-[#bd0d1a] [text-shadow:0_-8px_35px_rgba(189,13,26,0.5)]' 
+                  : 'text-[rgba(255,255,255,0.65)] [text-shadow:0_-8px_35px_rgba(255,255,255,0.25)] hover:text-[rgba(255,255,255,0.85)] hover:[text-shadow:0_-8px_35px_rgba(255,255,255,0.35)]'
+              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveLink(link);
+              }}
+            >
+              {link}
+            </a>
+          ))}
         </div>
-      </nav>
-
+        <div className="justify-self-end col-start-3 cart-icon-wrapper">
+          <CartIcon />
+        </div>
+      </div>
+    </nav>
+    
+    {/* Main content area */}
+    <main className="absolute top-[30px] left-[30px] right-[30px] bottom-[30px] md:top-[15px] md:left-[15px] md:right-[15px] md:bottom-[15px] overflow-y-auto overflow-x-hidden film-content">
       {/* Hero Section */}
       <section className="relative w-full h-screen flex items-center justify-center z-10 overflow-hidden hero-section">
         {/* Noir wall background - base #1a1a1a */}
@@ -207,7 +207,7 @@ function App() {
         zIndex: -5,
       }}
     ></div>
-  </div>
+  </main>
   </div>
   </>)
 }

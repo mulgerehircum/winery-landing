@@ -136,7 +136,8 @@ export default function WinesSection() {
   }, []);
 
   return (
-    <div className="relative w-full h-screen py-16 px-8 z-10 overflow-hidden pointer-events-none flex justify-center items-center bg-[#1a1a1a] md:py-8 md:px-0">
+    <section className="relative w-full h-screen py-16 px-8 z-10 overflow-hidden pointer-events-none flex justify-center items-center bg-[#1a1a1a] md:py-8 md:px-0">
+      <h2 className="sr-only">Our Wines</h2>
       <div 
         className="relative w-full max-w-[1400px] overflow-x-auto overflow-y-hidden pointer-events-auto py-12 select-none flex gap-8 items-center scrollbar-none [&::-webkit-scrollbar]:hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] max-md:snap-x max-md:snap-mandatory max-md:[mask-image:linear-gradient(to_right,transparent,black_15px,black_calc(100%-15px),transparent)] max-md:[-webkit-mask-image:linear-gradient(to_right,transparent,black_15px,black_calc(100%-15px),transparent)]"   
         ref={containerRef}
@@ -153,6 +154,6 @@ export default function WinesSection() {
         ))}
         <div className="shrink-0 w-[calc(50vw-190px)] min-w-[20px] h-px md:w-[calc(50vw-145px)]"></div>
       </div>
-    </div>
+    </section>
   );
 }
