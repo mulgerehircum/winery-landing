@@ -1,0 +1,323 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card { padding: 2em; }
+.read-the-docs { color: #888; }
+
+/* Film border gradients */
+.film-border-top,
+.film-border-bottom {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 8px,
+    #000 8px,
+    #000 12px,
+    transparent 12px,
+    transparent 20px,
+    #000 20px,
+    #000 24px,
+    transparent 24px,
+    transparent 32px,
+    #000 32px,
+    #000 36px,
+    transparent 36px,
+    transparent 44px,
+    #000 44px,
+    #000 48px,
+    transparent 48px,
+    transparent 56px,
+    #000 56px,
+    #000 60px,
+    transparent 60px,
+    transparent 68px,
+    #000 68px,
+    #000 72px,
+    transparent 72px,
+    transparent 80px,
+    #000 80px,
+    #000 84px,
+    transparent 84px,
+    transparent 92px,
+    #000 92px,
+    #000 96px,
+    transparent 96px,
+    transparent 104px,
+    #000 104px,
+    #000 108px,
+    transparent 108px,
+    transparent 116px,
+    #000 116px,
+    #000 120px,
+    transparent 120px,
+    transparent 128px
+  );
+}
+
+.film-border-left,
+.film-border-right {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 8px,
+    #000 8px,
+    #000 12px,
+    transparent 12px,
+    transparent 20px,
+    #000 20px,
+    #000 24px,
+    transparent 24px,
+    transparent 32px,
+    #000 32px,
+    #000 36px,
+    transparent 36px,
+    transparent 44px,
+    #000 44px,
+    #000 48px,
+    transparent 48px,
+    transparent 56px,
+    #000 56px,
+    #000 60px,
+    transparent 60px,
+    transparent 68px,
+    #000 68px,
+    #000 72px,
+    transparent 72px,
+    transparent 80px,
+    #000 80px,
+    #000 84px,
+    transparent 84px,
+    transparent 92px,
+    #000 92px,
+    #000 96px,
+    transparent 96px,
+    transparent 104px,
+    #000 104px,
+    #000 108px,
+    transparent 108px,
+    transparent 116px,
+    #000 116px,
+    #000 120px,
+    transparent 120px,
+    transparent 128px
+  );
+}
+
+@media (max-width: 768px) {
+  .film-border-top, .film-border-bottom { background-size: 100% 15px; }
+  .film-border-left, .film-border-right { background-size: 15px 100%; }
+}
+
+/* Animated film shimmer */
+.film-shimmer {
+  position: absolute;
+  top: 30px; left: 0; right: 0; bottom: 30px;
+  background: linear-gradient(to bottom, transparent 0%, transparent 35%, rgba(255, 255, 255, 0.3) 42%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.3) 58%, transparent 65%, transparent 100%);
+  background-size: 100% 200%;
+  animation: filmShimmer 2.5s linear infinite;
+  pointer-events: none; z-index: 5; mix-blend-mode: overlay;
+}
+
+@keyframes filmShimmer {
+  0% { background-position: 0% -100%; }
+  100% { background-position: 0% 100%; }
+}
+
+/* Film flicker effect */
+.film-flicker {
+  position: absolute;
+  top: 20px; left: 0; right: 0; bottom: 20px;
+  background: rgba(0, 0, 0, 0);
+  animation: filmFlicker 0.15s infinite;
+  pointer-events: none; z-index: 6;
+}
+
+@keyframes filmFlicker {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.08; }
+}
+
+/* Film scratches overlay */
+.film-scratches {
+  position: absolute;
+  top: 20px; left: 0; right: 0; bottom: 20px;
+  background-image: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.12) 1%, transparent 2%),
+                    linear-gradient(90deg, transparent 10%, rgba(255, 255, 255, 0.1) 11%, transparent 12%),
+                    linear-gradient(90deg, transparent 20%, rgba(255, 255, 255, 0.15) 21%, transparent 22%),
+                    linear-gradient(90deg, transparent 30%, rgba(255, 255, 255, 0.11) 31%, transparent 32%),
+                    linear-gradient(90deg, transparent 40%, rgba(255, 255, 255, 0.13) 41%, transparent 42%),
+                    linear-gradient(90deg, transparent 50%, rgba(255, 255, 255, 0.12) 51%, transparent 52%),
+                    linear-gradient(90deg, transparent 60%, rgba(255, 255, 255, 0.1) 61%, transparent 62%),
+                    linear-gradient(90deg, transparent 70%, rgba(255, 255, 255, 0.14) 71%, transparent 72%),
+                    linear-gradient(90deg, transparent 80%, rgba(255, 255, 255, 0.11) 81%, transparent 82%),
+                    linear-gradient(90deg, transparent 90%, rgba(255, 255, 255, 0.12) 91%, transparent 92%);
+  background-size: 100% 2px, 100% 1px, 100% 3px, 100% 1.5px, 100% 2px, 100% 1px, 100% 2.5px, 100% 1px, 100% 2px, 100% 1.5px;
+  background-position: 0% 10%, 0% 25%, 0% 40%, 0% 55%, 0% 70%, 0% 15%, 0% 30%, 0% 45%, 0% 60%, 0% 75%;
+  background-repeat: repeat-y;
+  pointer-events: none; z-index: 4; opacity: 0.7;
+  animation: filmScratches 8s linear infinite;
+}
+
+@keyframes filmScratches {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100px); }
+}
+
+/* Film grain */
+.film-grain {
+  position: absolute;
+  top: 30px; left: 0; right: 0; bottom: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.25'/%3E%3C/svg%3E");
+  opacity: 0.8; pointer-events: none; z-index: 3; mix-blend-mode: overlay;
+}
+
+/* Film artifacts */
+.film-artifacts {
+  position: absolute;
+  top: 30px; left: 0; right: 0; bottom: 30px;
+  background-image: radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.6) 0.8px, transparent 0.8px),
+                    radial-gradient(circle at 45% 35%, rgba(255, 255, 255, 0.5) 0.6px, transparent 0.6px),
+                    radial-gradient(circle at 75% 50%, rgba(255, 255, 255, 0.7) 0.7px, transparent 0.7px),
+                    radial-gradient(circle at 25% 65%, rgba(255, 255, 255, 0.4) 0.5px, transparent 0.5px),
+                    radial-gradient(circle at 60% 80%, rgba(255, 255, 255, 0.6) 0.8px, transparent 0.8px),
+                    radial-gradient(circle at 85% 25%, rgba(255, 255, 255, 0.5) 0.6px, transparent 0.6px),
+                    radial-gradient(circle at 35% 45%, rgba(255, 255, 255, 0.55) 0.7px, transparent 0.7px),
+                    radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.45) 0.6px, transparent 0.6px),
+                    radial-gradient(circle at 50% 15%, rgba(255, 255, 255, 0.5) 0.5px, transparent 0.5px);
+  background-size: 200px 200px, 150px 150px, 180px 180px, 160px 160px, 190px 190px, 170px 170px, 165px 165px, 175px 175px, 155px 155px;
+  background-position: 0% 0%, 20% 30%, 40% 10%, 60% 50%, 80% 70%, 90% 20%, 30% 40%, 65% 60%, 45% 12%;
+  pointer-events: none; z-index: 4; opacity: 0.8;
+  animation: filmArtifacts 12s linear infinite;
+}
+
+@keyframes filmArtifacts {
+  0% { background-position: 0% 0%, 20% 30%, 40% 10%, 60% 50%, 80% 70%, 90% 20%; }
+  100% { background-position: 0% 100%, 20% 130%, 40% 110%, 60% 150%, 80% 170%, 90% 120%; }
+}
+
+@media (max-width: 768px) {
+  .film-shimmer, .film-flicker, .film-scratches, .film-grain, .film-artifacts {
+    top: 15px; bottom: 15px;
+  }
+}
+
+/* Hero Text Fill Effect */
+.hero-text {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-word {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.9);
+  text-shadow: 0 -12px 45px rgba(255, 255, 255, 0.35);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.hero-word:hover {
+  background: transparent;
+  outline: none;
+  border: none;
+}
+
+.hero-word:not(.hero-word-vino):hover {
+  text-shadow: 0 -12px 45px rgba(255, 255, 255, 0.35);
+}
+
+.hero-word:focus {
+  background: transparent;
+  outline: none;
+  border: none;
+}
+
+.hero-word::after {
+  content: attr(data-word);
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  color: rgba(255, 255, 255, 0.9);
+  -webkit-text-stroke: 0; text-shadow: none;
+  overflow: hidden; white-space: nowrap;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  visibility: hidden; opacity: 0;
+  transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0.6s, opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none; will-change: clip-path;
+  isolation: isolate; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  background: none; box-shadow: none; filter: none;
+}
+
+.hero-word-vino::after { color: #bd0d1a; }
+
+.hero-word:hover::after {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  visibility: visible; opacity: 1;
+  transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s, opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: none;
+}
+
+/* Cart Animations */
+@keyframes cartBounce {
+  0% { transform: scale(1) translateY(0); }
+  30% { transform: scale(1.1) translateY(-12px); }
+  50% { transform: scale(1.1) translateY(-12px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+@keyframes sparkFlash {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+@keyframes badgePop {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}

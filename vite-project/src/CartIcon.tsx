@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
 import { useCart } from './CartContext';
-import './CartIcon.css';
 
 export default function CartIcon() {
   const { cartCount, setIsCartOpen, lastAddedTime } = useCart();
@@ -31,11 +30,11 @@ export default function CartIcon() {
 
   return (
     <button 
-      className={`cart-icon-button ${isBouncing ? 'bounce' : ''}`} 
+      className={`bg-transparent border-none text-white/65 cursor-pointer p-2 relative transition-colors duration-300 flex items-center justify-center outline-none hover:text-white/85 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.35)] ${isBouncing ? 'animate-[cartBounce_0.3s_cubic-bezier(0.175,0.885,0.32,1.275)]' : ''}`} 
       onClick={() => setIsCartOpen(true)}
       aria-label="Open cart"
     >
-      {showSpark && <div className="cart-spark"></div>}
+      {showSpark && <div className="absolute top-1/2 left-1/2 w-full h-full rounded-full pointer-events-none -z-10 animate-[sparkFlash_0.15s_ease-out_forwards] bg-[radial-gradient(circle,rgba(255,255,255,0.8)_0%,transparent_70%)]"></div>}
       <svg 
         width="24" 
         height="24" 
@@ -51,7 +50,7 @@ export default function CartIcon() {
         <path d="M16 10a4 4 0 0 1-8 0" />
       </svg>
       {cartCount > 0 && (
-        <span key={cartCount} className="cart-count-badge">{cartCount}</span>
+        <span key={cartCount} className="absolute -top-0.5 -right-0.5 bg-[#bd0d1a] text-white text-xs font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1 shadow-[0_2px_4px_rgba(0,0,0,0.3)] animate-[badgePop_0.3s_cubic-bezier(0.175,0.885,0.32,1.275)]">{cartCount}</span>
       )}
     </button>
   );

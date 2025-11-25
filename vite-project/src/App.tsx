@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import './App.css'
+import './effects.css'
 import SVGComponent from './SVGComponent'
 import SmokeBackground from './SmokeBackground'
 import WinesSection from './WinesSection'
 import AboutSection from './AboutSection'
+import VisitUsSection from './VisitUsSection'
 import CartModal from './CartModal'
 import CartIcon from './CartIcon'
 
@@ -42,18 +43,18 @@ function App() {
   return (<>
   <CartModal />
   {/* Film container with border and effects */}
-  <div className="film-container-wrapper">
+  <div className="fixed inset-0 bg-[#1a1a1a] overflow-hidden z-1 film-container-wrapper">
     {/* Film border with sprocket holes */}
-    <div className="film-border-top"></div>
-    <div className="film-border-bottom"></div>
-    <div className="film-border-left"></div>
-    <div className="film-border-right"></div>
+    <div className="absolute top-0 left-0 right-0 h-[30px] md:h-[15px] bg-black z-10 film-border-top"></div>
+    <div className="absolute bottom-0 left-0 right-0 h-[30px] md:h-[15px] bg-black z-10 film-border-bottom"></div>
+    <div className="absolute top-0 bottom-0 left-0 w-[30px] md:w-[15px] bg-black z-10 film-border-left"></div>
+    <div className="absolute top-0 bottom-0 right-0 w-[30px] md:w-[15px] bg-black z-10 film-border-right"></div>
     
     {/* Main content area */}
-    <div className="film-content">
+    <div className="absolute top-[30px] left-[30px] right-[30px] bottom-[30px] md:top-[15px] md:left-[15px] md:right-[15px] md:bottom-[15px] overflow-y-auto overflow-x-hidden film-content">
       {/* Navbar */}
-      <nav className="navbar">
-        <div className="navbar-content">
+      <nav className="fixed top-0 left-0 right-0 z-20 p-[calc(1.5rem+8px)_2rem_1.5rem_2rem] md:p-4 md:px-6 pointer-events-auto navbar">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center max-w-[1280px] mx-auto navbar-content">
           <div className="col-start-2 flex items-center justify-center gap-4 md:gap-10 pt-2 md:pt-2">
             {['Wines', 'About', 'Contact'].map((link) => (
               <a 
@@ -73,16 +74,16 @@ function App() {
               </a>
             ))}
           </div>
-          <div className="cart-icon-wrapper">
+          <div className="justify-self-end col-start-3 cart-icon-wrapper">
             <CartIcon />
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="hero-section">
+      <section className="relative w-full h-screen flex items-center justify-center z-10 overflow-hidden hero-section">
         {/* Noir wall background - base #1a1a1a */}
-        <div className="hero-background">
+        <div className="absolute inset-0 -z-10 bg-[#1a1a1a] hero-background">
           {/* Light fog top - #2b2b2b at 6% opacity */}
           <div 
             className="absolute inset-0"
@@ -103,7 +104,7 @@ function App() {
         <SmokeBackground />
 
         {/* Stage Table - Glossy #111 strip */}
-        <div className="hero-stage-table">
+        <div className="absolute left-0 right-0 bottom-[10%] h-[16%] -z-[8] bg-[#111111] shadow-[0_-2px_10px_rgba(255,255,255,0.05)_inset,0_5px_20px_rgba(0,0,0,0.8)] border-t border-white/15 origin-bottom [transform:perspective(1000px)_rotateX(5deg)] hero-stage-table">
           {/* Glossy Reflection Gradient */}
           <div 
             className="absolute inset-0"
@@ -114,21 +115,21 @@ function App() {
         </div>
 
         {/* Glass container - sits ON the stage table */}
-        <div className="hero-glass-container">
+        <div className="absolute bottom-[calc(18%+20px)] left-1/2 -translate-x-1/2 w-[80%] max-w-[400px] -z-[7] hero-glass-container">
           <SVGComponent style={{ width: '100%', height: 'auto', position: 'relative', zIndex: 2 }} />
           
-          <div className="cta-container">
-            <button className="cta-button">
+          <div className="absolute top-[90%] left-1/2 -translate-x-1/2 pt-[50px] z-20 pointer-events-auto w-max cta-container">
+            <button className="appearance-none bg-transparent border-[1.5px] border-white/80 rounded-full py-3 px-7 font-['Playfair_Display',serif] text-[0.9rem] uppercase tracking-[2px] text-white/80 cursor-pointer transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] backdrop-blur-[2px] hover:bg-white/5 hover:border-white hover:text-white hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.5)] hover:-translate-y-[2px] active:translate-y-0 active:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] cta-button">
               Enter the Cellar
             </button>
           </div>
         </div>
 
         <div 
-          className="hero-text-container"
+          className="absolute top-[15%] left-0 right-0 pointer-events-auto text-center z-[15] select-none hero-text-container"
           style={{ fontFamily: '"Playfair Display", serif' }}
         >
-          <h1 className="text-[3.5rem] sm:text-[5rem] md:text-[7rem] font-bold tracking-[0.15em] leading-none hero-text">
+          <h1 className="text-[calc(3.5rem-10px)] sm:text-[calc(6rem-10px)] md:text-[calc(9rem-10px)] font-bold tracking-[0.15em] leading-none hero-text">
             <span className="hero-word" data-word="IN">IN</span>
             {' '}
             <span className="hero-word hero-word-vino" data-word="VINO">VINO</span>
@@ -143,6 +144,9 @@ function App() {
 
       {/* About Section - Alternating Layout */}
       <AboutSection />
+
+      {/* Visit Us Section */}
+      <VisitUsSection />
 
       {/* Spotlight Effect Layer */}
       <div 
