@@ -5,6 +5,7 @@ import SmokeBackground from './SmokeBackground'
 import WinesSection from './WinesSection'
 import AboutSection from './AboutSection'
 import VisitUsSection from './VisitUsSection'
+import ContactSection from './ContactSection'
 import CartModal from './CartModal'
 import CartIcon from './CartIcon'
 
@@ -23,6 +24,7 @@ function App() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
 
   // Calculate beam points
   const beamOrigin = { x: 0, y: 0 }; // Top-left
@@ -45,10 +47,10 @@ function App() {
   {/* Film container with border and effects */}
   <div className="fixed inset-0 bg-[#1a1a1a] overflow-hidden z-1 film-container-wrapper">
     {/* Film border with sprocket holes */}
-    <div className="absolute top-0 left-0 right-0 h-[30px] md:h-[15px] bg-black z-10 film-border-top"></div>
-    <div className="absolute bottom-0 left-0 right-0 h-[30px] md:h-[15px] bg-black z-10 film-border-bottom"></div>
-    <div className="absolute top-0 bottom-0 left-0 w-[30px] md:w-[15px] bg-black z-10 film-border-left"></div>
-    <div className="absolute top-0 bottom-0 right-0 w-[30px] md:w-[15px] bg-black z-10 film-border-right"></div>
+    <div className="absolute top-0 left-0 right-0 h-[10px] md:h-[15px] bg-black z-10 film-border-top"></div>
+    <div className="absolute bottom-0 left-0 right-0 h-[10px] md:h-[15px] bg-black z-10 film-border-bottom"></div>
+    <div className="absolute top-0 bottom-0 left-0 w-[10px] md:w-[15px] bg-black z-10 film-border-left"></div>
+    <div className="absolute top-0 bottom-0 right-0 w-[10px] md:w-[15px] bg-black z-10 film-border-right"></div>
     
     {/* Navbar */}
     <nav className="fixed top-0 left-0 right-0 z-20 p-[calc(1.5rem+8px)_2rem_1.5rem_2rem] md:p-4 md:px-6 pointer-events-auto navbar">
@@ -79,7 +81,7 @@ function App() {
     </nav>
     
     {/* Main content area */}
-    <main className="absolute top-[30px] left-[30px] right-[30px] bottom-[30px] md:top-[15px] md:left-[15px] md:right-[15px] md:bottom-[15px] overflow-y-auto overflow-x-hidden film-content">
+    <main className="absolute top-[10px] left-[10px] right-[10px] bottom-[10px] md:top-[15px] md:left-[15px] md:right-[15px] md:bottom-[15px] overflow-y-auto overflow-x-hidden film-content">
       {/* Hero Section */}
       <section className="relative w-full h-screen flex items-center justify-center z-10 overflow-hidden hero-section">
         {/* Noir wall background - base #1a1a1a */}
@@ -103,22 +105,12 @@ function App() {
         {/* Animated smoke background */}
         <SmokeBackground />
 
-        {/* Stage Table - Glossy #111 strip */}
-        <div className="absolute left-0 right-0 bottom-[10%] h-[16%] -z-[8] bg-[#111111] shadow-[0_-2px_10px_rgba(255,255,255,0.05)_inset,0_5px_20px_rgba(0,0,0,0.8)] border-t border-white/15 origin-bottom [transform:perspective(1000px)_rotateX(5deg)] hero-stage-table">
-          {/* Glossy Reflection Gradient */}
-          <div 
-            className="absolute inset-0"
-            style={{
-              background: 'linear-gradient(to bottom, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 20%, transparent 60%)',
-            }}
-          ></div>
-        </div>
 
         {/* Glass container - sits ON the stage table */}
         <div className="absolute bottom-[calc(18%+20px)] left-1/2 -translate-x-1/2 w-[80%] max-w-[400px] -z-[7] hero-glass-container">
           <SVGComponent style={{ width: '100%', height: 'auto', position: 'relative', zIndex: 2 }} />
           
-          <div className="absolute top-[90%] left-1/2 -translate-x-1/2 pt-[50px] z-20 pointer-events-auto w-max cta-container">
+          <div className="absolute top-[100%] left-1/2 -translate-x-1/2 pt-[50px] z-20 pointer-events-auto w-max cta-container">
             <button className="appearance-none bg-transparent border-[1.5px] border-white/80 rounded-full py-3 px-7 font-['Playfair_Display',serif] text-[0.9rem] uppercase tracking-[2px] text-white/80 cursor-pointer transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] backdrop-blur-[2px] hover:bg-white/5 hover:border-white hover:text-white hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.5)] hover:-translate-y-[2px] active:translate-y-0 active:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] cta-button">
               Enter the Cellar
             </button>
@@ -147,6 +139,9 @@ function App() {
 
       {/* Visit Us Section */}
       <VisitUsSection />
+
+      {/* Contact Section */}
+      <ContactSection />
 
       {/* Spotlight Effect Layer */}
       <div 

@@ -1,16 +1,23 @@
 import { memo } from 'react';
-import visitUsImg from './assets/visit_us.jpg';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import visitUsImg from './assets/visit_us.jpg?w=1200&format=webp';
+import visitUsImgFallback from './assets/visit_us.jpg';
 
 const VisitUsSection = memo(() => {
   return (
     <section className="relative w-full min-h-screen flex items-center overflow-hidden z-10">
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
-        <img 
-          src={visitUsImg} 
-          alt="Vineyard Estate" 
-          className="w-full h-full object-cover"
-        />
+        <picture>
+          <source srcSet={visitUsImg} type="image/webp" />
+          <img 
+            src={visitUsImgFallback} 
+            alt="Vineyard Estate" 
+            className="w-[50%] h-full object-cover"
+            loading="lazy"
+            fetchPriority="low"
+          />
+        </picture>
         {/* Overlay for better text contrast if needed, but user asked for 'over the picture' */}
         <div className="absolute inset-0 bg-black/20"></div>
       </div>
@@ -37,4 +44,5 @@ const VisitUsSection = memo(() => {
 });
 
 export default VisitUsSection;
+
 

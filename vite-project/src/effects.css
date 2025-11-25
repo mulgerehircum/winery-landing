@@ -284,12 +284,36 @@
   background: none; box-shadow: none; filter: none;
 }
 
-.hero-word-vino::after { color: #bd0d1a; }
+.hero-word-vino::after { 
+  color: #bd0d1a;
+  /* Default: empty */
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  visibility: hidden;
+  opacity: 0;
+  transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0.6s, opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-.hero-word:hover::after {
+/* VINO hover - bottom to top fill */
+.hero-word-vino:hover::after {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  visibility: visible; opacity: 1;
+  visibility: visible;
+  opacity: 1;
   transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s, opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: none;
+}
+
+/* VINO mouse leave - reverse (top to bottom, emptying) */
+.hero-word-vino:not(:hover)::after {
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0.6s, opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Other words hover - opacity fade */
+.hero-word:not(.hero-word-vino):hover::after {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s, clip-path 0s;
   text-shadow: none;
 }
 

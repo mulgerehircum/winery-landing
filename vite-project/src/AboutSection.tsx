@@ -1,8 +1,14 @@
 import { memo } from 'react';
 
 import vineyardImg from './assets/About/vineyard.jpg';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import vineyardWebp from './assets/About/vineyard.jpg?format=webp';
 import cellarImg from './assets/About/cellar.jpg';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import cellarWebp from './assets/About/cellar.jpg?format=webp';
 import traditionImg from './assets/About/tradition.jpg';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import traditionWebp from './assets/About/tradition.jpg?format=webp';
 
 interface ContentBlock {
   id: number;
@@ -10,6 +16,7 @@ interface ContentBlock {
   subtitle: string;
   text: string;
   image: string;
+  imageWebp: string;
   imageAlt: string;
 }
 
@@ -20,6 +27,7 @@ const content: ContentBlock[] = [
     subtitle: "Est. 1924",
     text: "Nestled in the misty valleys of the Pacific Northwest, our vines struggle against the elements to produce fruit of exceptional character. The volcanic soil, rich in minerals and history, imparts a distinct flinty backbone to our wines, while the cool maritime breeze preserves their natural acidity.",
     image: vineyardImg,
+    imageWebp: vineyardWebp,
     imageAlt: "Misty vineyard rows"
   },
   {
@@ -28,6 +36,7 @@ const content: ContentBlock[] = [
     subtitle: "Shadow & Time",
     text: "Beneath the earth, silence reigns. In our limestone caves, temperature and humidity remain constant constants, guarding the slow alchemy of aging. Here, time is measured not in hours, but in vintages. We practice low-intervention winemaking, allowing the true voice of the terroir to emerge from the darkness.",
     image: cellarImg,
+    imageWebp: cellarWebp,
     imageAlt: "Dark wine cellar with barrels"
   },
   {
@@ -36,6 +45,7 @@ const content: ContentBlock[] = [
     subtitle: "Hand & Heart",
     text: "Generations of knowledge are passed down not through books, but through the stained hands of those who work the harvest. We honor the old ways—hand-picking at dawn, gravity-flow fermentation, and patience above all. Every bottle is a testament to the human touch in an automated world.",
     image: traditionImg,
+    imageWebp: traditionWebp,
     imageAlt: "Winemaker inspecting grapes"
   }
 ];
@@ -48,12 +58,15 @@ const AboutSection = memo(() => {
           <div key={block.id} className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center md:gap-8">
             <div className={`relative w-full aspect-4/3 overflow-hidden rounded-sm group ${index % 2 !== 0 ? 'md:order-2' : ''}`}>
               <div className="relative w-full h-full">
-                <img 
-                  src={block.image} 
-                  alt={block.imageAlt} 
-                  loading="lazy" 
-                  className={`w-full h-full object-cover transition-transform duration-700 will-change-transform backface-hidden transform-gpu group-hover:scale-105 ${block.id === 2 ? 'blur-[0.5px]' : ''}`}
-                />
+                <picture>
+                  <source srcSet={block.imageWebp} type="image/webp" />
+                  <img 
+                    src={block.image} 
+                    alt={block.imageAlt} 
+                    loading="lazy" 
+                    className={`w-full h-full object-cover transition-transform duration-700 will-change-transform backface-hidden transform-gpu group-hover:scale-105 ${block.id === 2 ? 'blur-[0.5px]' : ''}`}
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-linear-to-tr from-black/40 to-transparent pointer-events-none"></div>
               </div>
             </div>
