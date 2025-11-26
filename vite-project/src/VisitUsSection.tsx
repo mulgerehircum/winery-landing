@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import CTAButton from './CTAButton';
 // @ts-expect-error - vite-imagetools handles query parameters at build time
 import visitUsImg from './assets/visit_us.jpg?w=1200&format=webp&q=85';
 // @ts-expect-error - vite-imagetools handles query parameters at build time
@@ -24,8 +25,8 @@ const VisitUsSection = memo(() => {
       </div>
 
       {/* Content Container */}
-      <div className="relative w-full max-w-[1280px] mx-auto px-8 md:px-6 h-full flex items-center justify-end">
-        <div className="flex flex-col items-end gap-8 md:pr-20">
+      <div className="relative w-full max-w-section mx-auto px-8 md:px-6 h-full flex items-center justify-end">
+        <div className="flex flex-col items-end gap-8 md:gap-8 md:pr-20">
           <div className="text-right">
              <h2 className="font-['Playfair_Display',serif] text-5xl md:text-7xl text-white mb-4 drop-shadow-lg">
               Experience the<br/>Legacy
@@ -35,17 +36,18 @@ const VisitUsSection = memo(() => {
             </p>
           </div>
 
-          <button 
+          <CTAButton 
             onClick={() => {
               const contactSection = document.getElementById('contact-section');
               if (contactSection) {
                 contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }
             }}
-            className="appearance-none bg-transparent border-[1.5px] border-white/80 rounded-full py-4 px-10 font-['Playfair_Display',serif] text-[1rem] uppercase tracking-[3px] text-white cursor-pointer transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] backdrop-blur-[4px] hover:bg-white/10 hover:border-white hover:text-white hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.5)] hover:-translate-y-[2px] active:translate-y-0 active:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]"
+            variant="primary"
+            size="md"
           >
             Plan Your Visit
-          </button>
+          </CTAButton>
         </div>
       </div>
     </section>

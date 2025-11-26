@@ -186,9 +186,9 @@ export default function WinesSection() {
   }, []);
 
   return (
-    <section className="relative w-full h-screen py-16 px-8 z-10 overflow-hidden pointer-events-none flex flex-col justify-center items-center bg-[#1a1a1a] md:py-8 md:px-0">
+    <section className="relative w-full h-screen py-24 px-8 z-10 overflow-hidden pointer-events-none flex flex-col justify-center items-center bg-[#1a1a1a] md:py-20 md:px-6">
       {/* Section Header */}
-      <div className="text-center mb-12 md:mb-8 pointer-events-auto">
+      <div className="text-center mb-12 md:mb-10 pointer-events-auto">
         <span className="font-['Playfair_Display',serif] text-sm uppercase tracking-[0.2em] text-[#bd0d1a] block mb-4">
           Collection
         </span>
@@ -198,7 +198,7 @@ export default function WinesSection() {
         <div className="w-[60px] h-px bg-white/20 mx-auto"></div>
       </div>
       
-      <div className="relative w-full max-w-[1400px] pointer-events-auto">
+      <div className="relative w-full max-w-section pointer-events-auto">
         {/* Left Arrow - Mobile Only */}
         <button
           onClick={scrollLeft}

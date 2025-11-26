@@ -55,10 +55,10 @@ const content: ContentBlock[] = [
 
 const AboutSection = memo(() => {
   return (
-    <section className="w-full py-32 px-8 bg-[#111] text-white relative z-10 md:py-16 md:px-6">
-      <div className="max-w-[1200px] mx-auto flex flex-col gap-32 md:gap-20">
+    <section className="w-full py-24 px-8 bg-[#111] text-white relative z-10 md:py-20 md:px-6">
+      <div className="max-w-section mx-auto flex flex-col gap-16 md:gap-12">
         {content.map((block, index) => (
-          <div key={block.id} className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center md:gap-8">
+          <div key={block.id} className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center md:gap-12">
             <div className={`relative w-full aspect-4/3 overflow-hidden rounded-sm group ${index % 2 !== 0 ? 'md:order-2' : ''}`}>
               <div className="relative w-full h-full">
                 <picture>
@@ -73,7 +73,7 @@ const AboutSection = memo(() => {
                 <div className="absolute inset-0 bg-linear-to-tr from-black/40 to-transparent pointer-events-none"></div>
               </div>
             </div>
-            <div className={`flex flex-col gap-6 p-8 md:p-0 md:gap-4 ${index % 2 !== 0 ? 'md:order-1' : ''}`}>
+            <div className={`flex flex-col gap-6 md:gap-6 p-8 md:p-0 ${index % 2 !== 0 ? 'md:order-1' : ''}`}>
               <span className="font-['Playfair_Display',serif] text-sm uppercase tracking-[0.2em] text-[#bd0d1a]">{block.subtitle}</span>
               <h2 className="font-['Playfair_Display',serif] text-5xl leading-[1.1] text-white m-0 md:text-4xl">{block.title}</h2>
               <p className="text-base leading-loose text-white/70 m-0 max-w-[500px]">{block.text}</p>

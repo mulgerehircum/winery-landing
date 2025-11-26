@@ -59,10 +59,10 @@ const ContactSection = memo(() => {
   }, []);
 
   return (
-    <section className="relative w-full py-32 px-8 bg-[#1a1a1a] text-white relative z-10 md:py-16 md:px-6">
-      <div className="max-w-[1400px] mx-auto">
+    <section className="relative w-full py-24 px-8 bg-[#1a1a1a] text-white z-10 md:py-20 md:px-6">
+      <div className="max-w-section mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16 md:mb-12">
+        <div className="text-center mb-12 md:mb-10">
           <span className="font-['Playfair_Display',serif] text-sm uppercase tracking-[0.2em] text-[#bd0d1a] block mb-4">
             Find Us
           </span>
@@ -73,7 +73,7 @@ const ContactSection = memo(() => {
         </div>
 
         {/* Map and Contact Info Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start md:gap-12">
           {/* Map Container */}
           <div className="relative w-full h-[500px] md:h-[400px] rounded-lg overflow-hidden google-maps-container">
             <MapContainer
@@ -104,7 +104,7 @@ const ContactSection = memo(() => {
                 Contact Information
               </h3>
               
-              <div className="flex flex-col gap-6 md:gap-5">
+              <div className="flex flex-col gap-6 md:gap-6">
                 {/* Address */}
                 <div className="flex flex-col gap-2">
                   <span className="text-sm uppercase tracking-[0.1em] text-white/50 font-light">

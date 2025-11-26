@@ -8,6 +8,7 @@ import VisitUsSection from './VisitUsSection'
 import ContactSection from './ContactSection'
 import CartModal from './CartModal'
 import CartIcon from './CartIcon'
+import CTAButton from './CTAButton'
 import { CartProvider } from './CartContext'
 
 function App() {
@@ -165,12 +166,13 @@ function App() {
           <SVGComponent style={{ width: '100%', height: 'auto', position: 'relative', zIndex: 2 }} />
           
           <div className="absolute top-[100%] left-1/2 -translate-x-1/2 pt-[50px] z-20 pointer-events-auto w-max cta-container">
-            <button 
+            <CTAButton 
               onClick={() => scrollToSection('Wines')}
-              className="appearance-none bg-transparent border-[1.5px] border-white/80 rounded-full py-3 px-7 font-['Playfair_Display',serif] text-[0.9rem] uppercase tracking-[2px] text-white/80 cursor-pointer transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] backdrop-blur-[2px] hover:bg-white/5 hover:border-white hover:text-white hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.5)] hover:-translate-y-[2px] active:translate-y-0 active:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] cta-button"
+              variant="primary"
+              size="md"
             >
               Enter the Cellar
-            </button>
+            </CTAButton>
           </div>
         </div>
 
