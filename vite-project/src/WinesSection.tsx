@@ -77,7 +77,18 @@ export default function WinesSection() {
   const scrollLeftRef = useRef(0);
   const hasMovedRef = useRef(false);
   const [flippedId, setFlippedId] = useState<number | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
   const { addToCart } = useCart();
+
+  const updateScrollButtons = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -86,6 +97,7 @@ export default function WinesSection() {
     // Initial scroll to center (middle card)
     const scrollToCenter = () => {
       container.scrollLeft = (container.scrollWidth - container.clientWidth) / 2;
+      updateScrollButtons();
     };
     
     // Execute after layout
@@ -123,25 +135,51 @@ export default function WinesSection() {
       }
       
       container.scrollLeft = scrollLeftRef.current - walk;
+      updateScrollButtons();
+    };
+
+    const handleScroll = () => {
+      updateScrollButtons();
     };
 
     container.addEventListener('mousedown', handleMouseDown);
     document.addEventListener('mouseup', handleMouseUp);
     document.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('scroll', handleScroll);
 
     container.style.cursor = 'grab';
+
+    // Initial check
+    updateScrollButtons();
 
     return () => {
       clearTimeout(timer);
       container.removeEventListener('mousedown', handleMouseDown);
       document.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('mousemove', handleMouseMove);
+      container.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [updateScrollButtons]);
 
   const handleCardClick = useCallback((id: number) => {
     if (hasMovedRef.current) return;
     setFlippedId(prev => prev === id ? null : id);
+  }, []);
+
+  const scrollLeft = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const cardWidth = 290; // Mobile card width
+    const gap = 32; // gap-8 = 32px
+    container.scrollBy({ left: -(cardWidth + gap), behavior: 'smooth' });
+  }, []);
+
+  const scrollRight = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const cardWidth = 290; // Mobile card width
+    const gap = 32; // gap-8 = 32px
+    container.scrollBy({ left: cardWidth + gap, behavior: 'smooth' });
   }, []);
 
   return (
@@ -157,21 +195,55 @@ export default function WinesSection() {
         <div className="w-[60px] h-px bg-white/20 mx-auto"></div>
       </div>
       
-      <div 
-        className="relative w-full max-w-[1400px] overflow-x-auto overflow-y-hidden pointer-events-auto py-12 select-none flex gap-8 items-center scrollbar-none [&::-webkit-scrollbar]:hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] max-md:snap-x max-md:snap-mandatory max-md:[mask-image:linear-gradient(to_right,transparent,black_15px,black_calc(100%-15px),transparent)] max-md:[-webkit-mask-image:linear-gradient(to_right,transparent,black_15px,black_calc(100%-15px),transparent)]"   
-        ref={containerRef}
-      >
-        <div className="shrink-0 w-[calc(50vw-145px)] min-w-[20px] h-px md:w-[calc(50vw-190px)]"></div>
-        {wines.map((wine) => (
-          <WineCard 
-            key={wine.id}
-            wine={wine}
-            isFlipped={flippedId === wine.id}
-            onClick={handleCardClick}
-            onReserve={addToCart}
-          />
-        ))}
-        <div className="shrink-0 w-[calc(50vw-145px)] min-w-[20px] h-px md:w-[calc(50vw-190px)]"></div>
+      <div className="relative w-full max-w-[1400px] pointer-events-auto">
+        {/* Left Arrow - Mobile Only */}
+        <button
+          onClick={scrollLeft}
+          disabled={!canScrollLeft}
+          className={`md:hidden absolute left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 flex items-center justify-center text-white/40 transition-all duration-500 pointer-events-auto ${
+            canScrollLeft 
+              ? 'opacity-100 cursor-pointer hover:text-white/70 hover:translate-x-[-2px]' 
+              : 'opacity-0 cursor-not-allowed pointer-events-none'
+          }`}
+          aria-label="Scroll left"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+
+        {/* Right Arrow - Mobile Only */}
+        <button
+          onClick={scrollRight}
+          disabled={!canScrollRight}
+          className={`md:hidden absolute right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 flex items-center justify-center text-white/40 transition-all duration-500 pointer-events-auto ${
+            canScrollRight 
+              ? 'opacity-100 cursor-pointer hover:text-white/70 hover:translate-x-[2px]' 
+              : 'opacity-0 cursor-not-allowed pointer-events-none'
+          }`}
+          aria-label="Scroll right"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+
+        <div 
+          className="relative w-full overflow-x-auto overflow-y-hidden py-12 select-none flex gap-8 items-center scrollbar-none [&::-webkit-scrollbar]:hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] max-md:snap-x max-md:snap-mandatory max-md:[mask-image:linear-gradient(to_right,transparent,black_15px,black_calc(100%-15px),transparent)] max-md:[-webkit-mask-image:linear-gradient(to_right,transparent,black_15px,black_calc(100%-15px),transparent)]"   
+          ref={containerRef}
+        >
+          <div className="shrink-0 w-[calc(50vw-145px)] min-w-[20px] h-px md:w-[calc(50vw-190px)]"></div>
+          {wines.map((wine) => (
+            <WineCard 
+              key={wine.id}
+              wine={wine}
+              isFlipped={flippedId === wine.id}
+              onClick={handleCardClick}
+              onReserve={addToCart}
+            />
+          ))}
+          <div className="shrink-0 w-[calc(50vw-145px)] min-w-[20px] h-px md:w-[calc(50vw-190px)]"></div>
+        </div>
       </div>
     </section>
   );
