@@ -3,15 +3,18 @@ import WineCard, { type WineCardData } from './WineCard';
 import { useCart } from './CartContext';
 
 // Import bottle images with optimization
-import midnightReserveImg from './assets/Bottles/midnight_reserve.png';
 // @ts-expect-error - vite-imagetools handles query parameters at build time
-import midnightReserveSrcSet from './assets/Bottles/midnight_reserve.png?w=200;400;600;800&format=webp&as=srcset';
-import noirCollectionImg from './assets/Bottles/noir_collection.png';
+import midnightReserveImg from './assets/Bottles/midnight_reserve.png?w=800&q=85';
 // @ts-expect-error - vite-imagetools handles query parameters at build time
-import noirCollectionSrcSet from './assets/Bottles/noir_collection.png?w=200;400;600;800&format=webp&as=srcset';
-import jazzAgeBlendImg from './assets/Bottles/jazz_age_blend.png';
+import midnightReserveSrcSet from './assets/Bottles/midnight_reserve.png?w=200;400;600;800&format=webp&q=85&as=srcset';
 // @ts-expect-error - vite-imagetools handles query parameters at build time
-import jazzAgeBlendSrcSet from './assets/Bottles/jazz_age_blend.png?w=200;400;600;800&format=webp&as=srcset';
+import noirCollectionImg from './assets/Bottles/noir_collection.png?w=800&q=85';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import noirCollectionSrcSet from './assets/Bottles/noir_collection.png?w=200;400;600;800&format=webp&q=85&as=srcset';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import jazzAgeBlendImg from './assets/Bottles/jazz_age_blend.png?w=800&q=85';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import jazzAgeBlendSrcSet from './assets/Bottles/jazz_age_blend.png?w=200;400;600;800&format=webp&q=85&as=srcset';
 
 const wines: WineCardData[] = [
   {

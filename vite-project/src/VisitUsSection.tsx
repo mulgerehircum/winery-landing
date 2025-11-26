@@ -1,7 +1,8 @@
 import { memo } from 'react';
 // @ts-expect-error - vite-imagetools handles query parameters at build time
-import visitUsImg from './assets/visit_us.jpg?w=1200&format=webp';
-import visitUsImgFallback from './assets/visit_us.jpg';
+import visitUsImg from './assets/visit_us.jpg?w=1200&format=webp&q=85';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import visitUsImgFallback from './assets/visit_us.jpg?w=1200&q=85';
 
 const VisitUsSection = memo(() => {
   return (

@@ -2,7 +2,8 @@ import { memo, useEffect, useRef } from 'react';
 import { MapContainer, ImageOverlay, ZoomControl } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import mapImg from './assets/map.png';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import mapImg from './assets/map.png?w=2000&q=90';
 
 // Fix for default markers in Leaflet with React
 import icon from 'leaflet/dist/images/marker-icon.png';

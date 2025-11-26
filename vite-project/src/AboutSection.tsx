@@ -1,11 +1,17 @@
 import { memo } from 'react';
 
-import vineyardImg from './assets/About/vineyard.jpg';
-import vineyardWebp from './assets/About/vineyard.jpg?format=webp';
-import cellarImg from './assets/About/cellar.jpg';
-import cellarWebp from './assets/About/cellar.jpg?format=webp';
-import traditionImg from './assets/About/tradition.jpg';
-import traditionWebp from './assets/About/tradition.jpg?format=webp';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import vineyardImg from './assets/About/vineyard.jpg?w=1200&q=85';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import vineyardWebp from './assets/About/vineyard.jpg?w=1200&format=webp&q=85';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import cellarImg from './assets/About/cellar.jpg?w=1200&q=85';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import cellarWebp from './assets/About/cellar.jpg?w=1200&format=webp&q=85';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import traditionImg from './assets/About/tradition.jpg?w=1200&q=85';
+// @ts-expect-error - vite-imagetools handles query parameters at build time
+import traditionWebp from './assets/About/tradition.jpg?w=1200&format=webp&q=85';
 
 interface ContentBlock {
   id: number;
