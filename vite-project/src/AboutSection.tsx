@@ -1,13 +1,10 @@
 import { memo } from 'react';
 
 import vineyardImg from './assets/About/vineyard.jpg';
-// @ts-expect-error - vite-imagetools handles query parameters at build time
 import vineyardWebp from './assets/About/vineyard.jpg?format=webp';
 import cellarImg from './assets/About/cellar.jpg';
-// @ts-expect-error - vite-imagetools handles query parameters at build time
 import cellarWebp from './assets/About/cellar.jpg?format=webp';
 import traditionImg from './assets/About/tradition.jpg';
-// @ts-expect-error - vite-imagetools handles query parameters at build time
 import traditionWebp from './assets/About/tradition.jpg?format=webp';
 
 interface ContentBlock {
