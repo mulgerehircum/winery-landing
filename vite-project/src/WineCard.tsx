@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import CTAButton from './CTAButton';
 
 export interface WineCardData {
@@ -25,6 +25,7 @@ interface WineCardProps {
   isFlipped: boolean;
   onClick: (id: number) => void;
   onReserve: (wine: WineCardData) => void;
+  index?: number;
 }
 
 const StarRating = ({ rating }: { rating: number }) => {
@@ -38,10 +39,42 @@ const StarRating = ({ rating }: { rating: number }) => {
   );
 };
 
-const WineCard = memo(({ wine, isFlipped, onClick, onReserve }: WineCardProps) => {
+const WineCard = memo(({ wine, isFlipped, onClick, onReserve, index = 0 }: WineCardProps) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            // Disconnect after first intersection to avoid re-triggering
+            observer.disconnect();
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of card is visible
+        rootMargin: '50px', // Start animation slightly before card enters viewport
+      }
+    );
+
+    observer.observe(card);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div 
-      className={`shrink-0 w-[290px] h-[440px] md:w-[380px] md:h-[500px] lg:w-[420px] lg:h-[560px] perspective-[1500px] cursor-pointer transition-transform duration-300 hover:-translate-y-1 group max-md:snap-center ${isFlipped ? 'flipped' : ''}`}
+      ref={cardRef}
+      className={`shrink-0 w-[290px] h-[440px] md:w-[380px] md:h-[500px] lg:w-[420px] lg:h-[560px] perspective-[1500px] cursor-pointer transition-transform duration-300 hover:-translate-y-1 group max-md:snap-center ${isVisible ? 'wine-card-animate' : 'opacity-0 scale-[0.85]'} ${isFlipped ? 'flipped' : ''}`}
+      style={{ animationDelay: isVisible ? `${index * 0.15}s` : '0s' }}
       onClick={(e) => {
         // Don't trigger flip if clicking Reserve button
         if ((e.target as HTMLElement).closest('.reserve-button')) return;

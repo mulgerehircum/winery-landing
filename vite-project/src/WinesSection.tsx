@@ -236,13 +236,14 @@ export default function WinesSection() {
           ref={containerRef}
         >
           <div className="shrink-0 w-[calc(50vw-145px)] min-w-[20px] h-px md:w-[calc(50vw-190px)]"></div>
-          {wines.map((wine) => (
+          {wines.map((wine, index) => (
             <WineCard 
               key={wine.id}
               wine={wine}
               isFlipped={flippedId === wine.id}
               onClick={handleCardClick}
               onReserve={addToCart}
+              index={index}
             />
           ))}
           <div className="shrink-0 w-[calc(50vw-145px)] min-w-[20px] h-px md:w-[calc(50vw-190px)]"></div>
