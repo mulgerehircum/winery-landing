@@ -49,7 +49,18 @@ export default function CartModal() {
                 <span>Total</span>
                 <span>€{cartTotal}</span>
               </div>
-              <button className="w-full p-4 bg-[#bd0d1a] text-white border-none font-['Playfair_Display',serif] uppercase tracking-widest text-base cursor-pointer transition-colors duration-300 hover:bg-[#9e0b16]">
+              <button 
+                onClick={() => {
+                  setIsCartOpen(false);
+                  setTimeout(() => {
+                    const contactSection = document.getElementById('contact-section');
+                    if (contactSection) {
+                      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }, 300);
+                }}
+                className="w-full p-4 bg-[#bd0d1a] text-white border-none font-['Playfair_Display',serif] uppercase tracking-widest text-base cursor-pointer transition-colors duration-300 hover:bg-[#9e0b16]"
+              >
                 Proceed to Checkout
               </button>
             </div>

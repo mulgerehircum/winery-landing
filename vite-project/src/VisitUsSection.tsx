@@ -34,7 +34,15 @@ const VisitUsSection = memo(() => {
             </p>
           </div>
 
-          <button className="appearance-none bg-transparent border-[1.5px] border-white/80 rounded-full py-4 px-10 font-['Playfair_Display',serif] text-[1rem] uppercase tracking-[3px] text-white cursor-pointer transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] backdrop-blur-[4px] hover:bg-white/10 hover:border-white hover:text-white hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.5)] hover:-translate-y-[2px] active:translate-y-0 active:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]">
+          <button 
+            onClick={() => {
+              const contactSection = document.getElementById('contact-section');
+              if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
+            className="appearance-none bg-transparent border-[1.5px] border-white/80 rounded-full py-4 px-10 font-['Playfair_Display',serif] text-[1rem] uppercase tracking-[3px] text-white cursor-pointer transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] backdrop-blur-[4px] hover:bg-white/10 hover:border-white hover:text-white hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.5)] hover:-translate-y-[2px] active:translate-y-0 active:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)]"
+          >
             Plan Your Visit
           </button>
         </div>

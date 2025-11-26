@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './effects.css'
 import SVGComponent from './SVGComponent'
 import SmokeBackground from './SmokeBackground'
@@ -12,6 +12,9 @@ import CartIcon from './CartIcon'
 function App() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [activeLink, setActiveLink] = useState('Wines');
+  const winesSectionRef = useRef<HTMLElement>(null);
+  const aboutSectionRef = useRef<HTMLElement>(null);
+  const contactSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -24,6 +27,27 @@ function App() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  const scrollToSection = (section: 'Wines' | 'About' | 'Contact') => {
+    let targetRef: HTMLElement | null = null;
+    
+    switch (section) {
+      case 'Wines':
+        targetRef = winesSectionRef.current;
+        break;
+      case 'About':
+        targetRef = aboutSectionRef.current;
+        break;
+      case 'Contact':
+        targetRef = contactSectionRef.current;
+        break;
+    }
+    
+    if (targetRef) {
+      targetRef.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setActiveLink(section);
+    }
+  };
 
 
   // Calculate beam points
@@ -56,7 +80,7 @@ function App() {
     <nav className="fixed top-0 left-0 right-0 z-20 p-[calc(1.5rem+8px)_2rem_1.5rem_2rem] md:p-4 md:px-6 pointer-events-auto navbar">
       <div className="grid grid-cols-[1fr_auto_1fr] items-center max-w-[1280px] mx-auto navbar-content">
         <div className="col-start-2 flex items-center justify-center gap-4 md:gap-10 pt-2 md:pt-2">
-          {['Wines', 'About', 'Contact'].map((link) => (
+          {(['Wines', 'About', 'Contact'] as const).map((link) => (
             <a 
               key={link}
               href="#" 
@@ -67,7 +91,7 @@ function App() {
               }`}
               onClick={(e) => {
                 e.preventDefault();
-                setActiveLink(link);
+                scrollToSection(link);
               }}
             >
               {link}
@@ -111,7 +135,10 @@ function App() {
           <SVGComponent style={{ width: '100%', height: 'auto', position: 'relative', zIndex: 2 }} />
           
           <div className="absolute top-[100%] left-1/2 -translate-x-1/2 pt-[50px] z-20 pointer-events-auto w-max cta-container">
-            <button className="appearance-none bg-transparent border-[1.5px] border-white/80 rounded-full py-3 px-7 font-['Playfair_Display',serif] text-[0.9rem] uppercase tracking-[2px] text-white/80 cursor-pointer transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] backdrop-blur-[2px] hover:bg-white/5 hover:border-white hover:text-white hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.5)] hover:-translate-y-[2px] active:translate-y-0 active:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] cta-button">
+            <button 
+              onClick={() => scrollToSection('Wines')}
+              className="appearance-none bg-transparent border-[1.5px] border-white/80 rounded-full py-3 px-7 font-['Playfair_Display',serif] text-[0.9rem] uppercase tracking-[2px] text-white/80 cursor-pointer transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] backdrop-blur-[2px] hover:bg-white/5 hover:border-white hover:text-white hover:drop-shadow-[0_0_4px_rgba(255,255,255,0.5)] hover:-translate-y-[2px] active:translate-y-0 active:drop-shadow-[0_0_2px_rgba(255,255,255,0.3)] cta-button"
+            >
               Enter the Cellar
             </button>
           </div>
@@ -132,16 +159,22 @@ function App() {
       </section>
 
       {/* Wines Section */}
-      <WinesSection />
+      <section ref={winesSectionRef}>
+        <WinesSection />
+      </section>
 
       {/* About Section - Alternating Layout */}
-      <AboutSection />
+      <section ref={aboutSectionRef}>
+        <AboutSection />
+      </section>
 
       {/* Visit Us Section */}
       <VisitUsSection />
 
       {/* Contact Section */}
-      <ContactSection />
+      <section ref={contactSectionRef} id="contact-section">
+        <ContactSection />
+      </section>
 
       {/* Spotlight Effect Layer */}
       <div 
