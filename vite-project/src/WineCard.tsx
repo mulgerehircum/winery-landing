@@ -124,10 +124,11 @@ const WineCard = memo(({ wine, isFlipped, onClick, onReserve }: WineCardProps) =
             </div>
           </div>
           <button 
-            className="reserve-button mt-auto w-full p-3 text-[0.9rem] md:p-4 bg-transparent border border-white/20 text-white font-['Playfair_Display',serif] tracking-[0.1em] uppercase cursor-pointer transition-all duration-300 relative z-[2] hover:bg-[#bd0d1a]/10 hover:border-[#bd0d1a] md:text-[1rem]"
+            className="reserve-button mt-auto w-full p-3 text-[0.9rem] md:p-4 bg-transparent border border-white/20 text-white font-['Playfair_Display',serif] tracking-[0.1em] uppercase cursor-pointer transition-all duration-300 relative z-[2] hover:bg-[#bd0d1a]/10 hover:border-[#bd0d1a] md:text-[1rem] pointer-events-auto rounded-none"
             tabIndex={isFlipped ? 0 : -1}
             onClick={(e) => {
               e.stopPropagation();
+              e.preventDefault();
               onReserve(wine);
             }}
           >

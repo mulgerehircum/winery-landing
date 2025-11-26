@@ -8,13 +8,17 @@ import VisitUsSection from './VisitUsSection'
 import ContactSection from './ContactSection'
 import CartModal from './CartModal'
 import CartIcon from './CartIcon'
+import { CartProvider } from './CartContext'
 
 function App() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [activeLink, setActiveLink] = useState('Wines');
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const winesSectionRef = useRef<HTMLElement>(null);
   const aboutSectionRef = useRef<HTMLElement>(null);
   const contactSectionRef = useRef<HTMLElement>(null);
+  const mainRef = useRef<HTMLElement>(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -26,6 +30,29 @@ function App() {
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = mainRef.current?.scrollTop || 0;
+      
+      // Show navbar when scrolling up or at the top
+      if (currentScrollY < lastScrollY.current || currentScrollY < 10) {
+        setIsNavbarVisible(true);
+      } 
+      // Hide navbar when scrolling down
+      else if (currentScrollY > lastScrollY.current) {
+        setIsNavbarVisible(false);
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+
+    const mainElement = mainRef.current;
+    if (mainElement) {
+      mainElement.addEventListener('scroll', handleScroll);
+      return () => mainElement.removeEventListener('scroll', handleScroll);
+    }
   }, []);
 
   const scrollToSection = (section: 'Wines' | 'About' | 'Contact') => {
@@ -66,10 +93,11 @@ function App() {
     y: mousePos.y + Math.sin(angle - Math.PI / 2) * beamWidth
   };
 
-  return (<>
-  <CartModal />
-  {/* Film container with border and effects */}
-  <div className="fixed inset-0 bg-[#1a1a1a] overflow-hidden z-1 film-container-wrapper">
+  return (
+  <CartProvider onItemAdded={() => setIsNavbarVisible(true)}>
+    <CartModal />
+    {/* Film container with border and effects */}
+    <div className="fixed inset-0 bg-[#1a1a1a] overflow-hidden z-1 film-container-wrapper">
     {/* Film border with sprocket holes */}
     <div className="absolute top-0 left-0 right-0 h-[10px] md:h-[15px] bg-black z-10 film-border-top"></div>
     <div className="absolute bottom-0 left-0 right-0 h-[10px] md:h-[15px] bg-black z-10 film-border-bottom"></div>
@@ -77,7 +105,9 @@ function App() {
     <div className="absolute top-0 bottom-0 right-0 w-[10px] md:w-[15px] bg-black z-10 film-border-right"></div>
     
     {/* Navbar */}
-    <nav className="fixed top-0 left-0 right-0 z-20 p-[calc(1.5rem+8px)_2rem_1.5rem_2rem] md:p-4 md:px-6 pointer-events-auto navbar">
+    <nav className={`fixed top-0 left-0 right-0 z-20 p-[calc(1.5rem+8px)_2rem_1.5rem_2rem] md:p-4 md:px-6 pointer-events-auto navbar transition-transform duration-300 ease-in-out ${
+      isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
+    }`}>
       <div className="grid grid-cols-[1fr_auto_1fr] items-center max-w-[1280px] mx-auto navbar-content">
         <div className="col-start-2 flex items-center justify-center gap-4 md:gap-10 pt-2 md:pt-2">
           {(['Wines', 'About', 'Contact'] as const).map((link) => (
@@ -105,7 +135,7 @@ function App() {
     </nav>
     
     {/* Main content area */}
-    <main className="absolute top-[10px] left-[10px] right-[10px] bottom-[10px] md:top-[15px] md:left-[15px] md:right-[15px] md:bottom-[15px] overflow-y-auto overflow-x-hidden film-content">
+    <main ref={mainRef} className="absolute top-[10px] left-[10px] right-[10px] bottom-[10px] md:top-[15px] md:left-[15px] md:right-[15px] md:bottom-[15px] overflow-y-auto overflow-x-hidden film-content">
       {/* Hero Section */}
       <section className="relative w-full h-screen flex items-center justify-center z-10 overflow-hidden hero-section">
         {/* Noir wall background - base #1a1a1a */}
@@ -237,7 +267,7 @@ function App() {
     ></div>
   </main>
   </div>
-  </>)
+  </CartProvider>)
 }
 
 export default App

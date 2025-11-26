@@ -20,7 +20,7 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export function CartProvider({ children }: { children: ReactNode }) {
+export function CartProvider({ children, onItemAdded }: { children: ReactNode; onItemAdded?: () => void }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [lastAddedTime, setLastAddedTime] = useState(0);
@@ -39,11 +39,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
     setLastAddedTime(Date.now());
     
+    // Call callback to show navbar if provided
+    if (onItemAdded) {
+      onItemAdded();
+    }
+    
     // Delay opening cart to allow animations to play
     setTimeout(() => {
       setIsCartOpen(true);
     }, 800);
-  }, []);
+  }, [onItemAdded]);
 
   const removeFromCart = useCallback((id: number) => {
     setCartItems(prev => prev.filter(item => item.id !== id));

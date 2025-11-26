@@ -1134,6 +1134,7 @@
   padding: 1rem;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0; /* Formula: Parent border-radius (12px) - Parent padding (24px/32px) = 0px */
   color: #fff;
   font-family: "Playfair Display", serif;
   font-size: 1rem;
