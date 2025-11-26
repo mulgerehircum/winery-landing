@@ -31,10 +31,13 @@ interface WineCardProps {
 const StarRating = ({ rating }: { rating: number }) => {
   const filled = Math.floor(rating);
   return (
-    <div className="flex gap-[2px]">
-      {[...Array(5)].map((_, i) => (
-        <span key={i} className={`w-[6px] h-[6px] rounded-full border border-white/30 ${i < filled ? 'bg-white border-white' : ''}`}></span>
-      ))}
+    <div className="flex items-center gap-2">
+      <span className="font-['Playfair_Display',serif] text-[0.9rem] md:text-[1rem] text-[#FFFEF0]">{rating}</span>
+      <div className="flex gap-[2px]">
+        {[...Array(5)].map((_, i) => (
+          <span key={i} className={`w-[6px] h-[6px] rounded-full border border-[#FFFEF0]/30 ${i < filled ? 'bg-[#FFFEF0] border-[#FFFEF0]' : ''}`}></span>
+        ))}
+      </div>
     </div>
   );
 };
@@ -107,16 +110,15 @@ const WineCard = memo(({ wine, isFlipped, onClick, onReserve, index = 0 }: WineC
                 <span className="font-['Playfair_Display',serif] text-[0.75rem] md:text-[0.9rem] uppercase tracking-[0.1em] text-white/50">{wine.year}</span>
               </div>
             </div>
-            <div className="mt-4 pt-3 md:mt-8 flex items-center justify-between md:pt-4 border-t border-white/5 relative">
-              <div className={`bg-black border border-[#bd0d1a]/30 rounded-[20px] py-1 px-2 md:px-3 font-sans font-600 text-[0.8rem] md:text-[0.9rem] text-white transition-all duration-400 delay-300 ${isFlipped ? 'opacity-0 -translate-x-[15px] delay-0' : 'opacity-100 translate-x-0'} group-hover:border-[#bd0d1a]/60`}>
-                €{wine.price}
-              </div>
-              <div className={`flex items-center gap-2 transition-all duration-400 delay-300 ${isFlipped ? 'opacity-0 translate-x-[15px] delay-0' : 'opacity-100 translate-x-0'}`}>
-                <span className="text-[0.8rem] md:text-[0.9rem] font-bold text-white">{wine.rating}</span>
-                <StarRating rating={wine.rating} />
-              </div>
-              <div className="absolute bottom-[-2px] left-0 right-0 h-px bg-[#bd0d1a] scale-x-0 transition-transform duration-300 shadow-[0_-2px_5px_rgba(189,13,26,0.5)] group-hover:scale-x-100"></div>
+          </div>
+          <div className={`absolute bottom-0 left-0 right-0 pt-3 md:pt-4 pb-[1.5rem] md:pb-8 px-[1rem] md:px-8 flex items-center justify-between border-t border-white/5 z-[2] transition-all duration-400 delay-300 ${isFlipped ? 'opacity-0 delay-0' : 'opacity-100'}`}>
+            <div className={`transition-all duration-400 delay-300 ${isFlipped ? 'opacity-0 -translate-x-[15px] delay-0' : 'opacity-100 translate-x-0'}`}>
+              <StarRating rating={wine.rating} />
             </div>
+            <div className={`font-['Playfair_Display',serif] text-[1.35rem] md:text-[1.5rem] text-[#FFFEF0] transition-all duration-400 delay-300 ${isFlipped ? 'opacity-0 translate-x-[15px] delay-0' : 'opacity-100 translate-x-0'}`}>
+              €{wine.price}
+            </div>
+            <div className="absolute bottom-[-2px] left-0 right-0 h-px bg-[#bd0d1a] scale-x-0 transition-transform duration-300 shadow-[0_-2px_5px_rgba(189,13,26,0.5)] group-hover:scale-x-100"></div>
           </div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.03),transparent_70%)] pointer-events-none z-[1]"></div>
         </div>

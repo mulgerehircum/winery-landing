@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 
 // @ts-expect-error - vite-imagetools handles query parameters at build time
 import vineyardImg from './assets/About/vineyard.jpg?w=1200&q=85';
@@ -54,33 +54,83 @@ const content: ContentBlock[] = [
 ];
 
 const AboutSection = memo(() => {
+  const textRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [visibleBlocks, setVisibleBlocks] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    textRefs.current.forEach((ref, index) => {
+      if (!ref) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setVisibleBlocks((prev) => {
+                const newState = [...prev];
+                newState[index] = true;
+                return newState;
+              });
+              observer.disconnect();
+            }
+          });
+        },
+        {
+          threshold: 0.2,
+          rootMargin: '0px 0px -100px 0px',
+        }
+      );
+
+      observer.observe(ref);
+      observers.push(observer);
+    });
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, []);
+
   return (
     <section className="w-full py-24 px-8 bg-[#111] text-white relative z-10 md:py-20 md:px-6">
       <div className="max-w-section mx-auto flex flex-col gap-16 md:gap-12">
-        {content.map((block, index) => (
-          <div key={block.id} className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center md:gap-12">
-            <div className={`relative w-full aspect-4/3 overflow-hidden rounded-sm group ${index % 2 !== 0 ? 'md:order-2' : ''}`}>
-              <div className="relative w-full h-full">
-                <picture>
-                  <source srcSet={block.imageWebp} type="image/webp" />
-                  <img 
-                    src={block.image} 
-                    alt={block.imageAlt} 
-                    loading="lazy" 
-                    className={`w-full h-full object-cover transition-transform duration-700 will-change-transform backface-hidden transform-gpu group-hover:scale-105 ${block.id === 2 ? 'blur-[0.5px]' : ''}`}
-                  />
-                </picture>
-                <div className="absolute inset-0 bg-linear-to-tr from-black/40 to-transparent pointer-events-none"></div>
+        {content.map((block, index) => {
+          const isTextOnLeft = index % 2 !== 0; // Odd indexes have text on left
+          const isVisible = visibleBlocks[index];
+          const animationClass = isVisible 
+            ? (isTextOnLeft ? 'about-text-animate-left' : 'about-text-animate-right')
+            : (isTextOnLeft ? 'opacity-0 md:translate-x-[-50px]' : 'opacity-0 md:translate-x-[50px]');
+
+          return (
+            <div key={block.id} className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center md:gap-12">
+              <div className={`relative w-full aspect-4/3 overflow-hidden rounded-sm group about-image-wrapper ${isTextOnLeft ? 'md:order-2' : ''}`}>
+                <div className="relative w-full h-full">
+                  <picture>
+                    <source srcSet={block.imageWebp} type="image/webp" />
+                    <img 
+                      src={block.image} 
+                      alt={block.imageAlt} 
+                      loading="lazy" 
+                      className={`w-full h-full object-cover transition-transform duration-700 will-change-transform backface-hidden transform-gpu group-hover:scale-105 ${block.id === 2 ? 'blur-[0.5px]' : ''}`}
+                    />
+                  </picture>
+                  <div className="about-image-vignette"></div>
+                </div>
+              </div>
+              <div 
+                ref={(el) => {
+                  textRefs.current[index] = el;
+                }}
+                className={`flex flex-col gap-6 md:gap-6 p-8 md:p-0 items-center text-center ${isTextOnLeft ? 'md:order-1' : ''} ${animationClass}`}
+              >
+                <span className="font-['Playfair_Display',serif] text-sm uppercase tracking-[0.2em] text-[#bd0d1a]">{block.subtitle}</span>
+                <h2 className="font-['Playfair_Display',serif] text-5xl leading-[1.1] text-white m-0 md:text-4xl">{block.title}</h2>
+                <p className="text-base leading-[1.8] text-white/70 m-0 max-w-[500px]">{block.text}</p>
+                <div className="w-[60px] h-px bg-white/20 mt-4"></div>
               </div>
             </div>
-            <div className={`flex flex-col gap-6 md:gap-6 p-8 md:p-0 ${index % 2 !== 0 ? 'md:order-1' : ''}`}>
-              <span className="font-['Playfair_Display',serif] text-sm uppercase tracking-[0.2em] text-[#bd0d1a]">{block.subtitle}</span>
-              <h2 className="font-['Playfair_Display',serif] text-5xl leading-[1.1] text-white m-0 md:text-4xl">{block.title}</h2>
-              <p className="text-base leading-loose text-white/70 m-0 max-w-[500px]">{block.text}</p>
-              <div className="w-[60px] h-px bg-white/20 mt-4"></div>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

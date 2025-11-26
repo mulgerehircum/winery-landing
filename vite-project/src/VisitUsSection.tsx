@@ -28,7 +28,7 @@ const VisitUsSection = memo(() => {
       <div className="relative w-full max-w-section mx-auto px-8 md:px-6 h-full flex items-center justify-end">
         <div className="flex flex-col items-end gap-8 md:gap-8 md:pr-20">
           <div className="text-right">
-             <h2 className="font-['Playfair_Display',serif] text-5xl md:text-7xl text-white mb-4 drop-shadow-lg">
+             <h2 className="font-['Playfair_Display',serif] text-5xl md:text-7xl text-white mb-4">
               Experience the<br/>Legacy
             </h2>
             <p className="text-white/90 text-lg md:text-xl font-light tracking-wide max-w-md ml-auto drop-shadow-md">

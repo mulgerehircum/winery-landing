@@ -100,13 +100,13 @@ function App() {
     {/* Film container with border and effects */}
     <div className="fixed inset-0 bg-[#1a1a1a] overflow-hidden z-1 film-container-wrapper">
     {/* Film border with sprocket holes */}
-    <div className="absolute top-0 left-0 right-0 h-[10px] md:h-[15px] bg-black z-10 film-border-top"></div>
-    <div className="absolute bottom-0 left-0 right-0 h-[10px] md:h-[15px] bg-black z-10 film-border-bottom"></div>
-    <div className="absolute top-0 bottom-0 left-0 w-[10px] md:w-[15px] bg-black z-10 film-border-left"></div>
-    <div className="absolute top-0 bottom-0 right-0 w-[10px] md:w-[15px] bg-black z-10 film-border-right"></div>
+    <div className="absolute top-0 left-0 right-0 h-[10px] md:h-[15px] bg-black z-[20] film-border-top pointer-events-none"></div>
+    <div className="absolute bottom-0 left-0 right-0 h-[10px] md:h-[15px] bg-black z-[20] film-border-bottom pointer-events-none"></div>
+    <div className="absolute top-0 bottom-0 left-0 w-[10px] md:w-[15px] bg-black z-[20] film-border-left pointer-events-none"></div>
+    <div className="absolute top-0 bottom-0 right-0 w-[10px] md:w-[15px] bg-black z-[20] film-border-right pointer-events-none"></div>
     
     {/* Navbar */}
-    <nav className={`fixed top-0 left-0 right-0 z-20 p-[calc(1.5rem+8px)_2rem_1.5rem_2rem] md:p-4 md:px-6 pointer-events-auto navbar transition-transform duration-300 ease-in-out ${
+    <nav className={`fixed top-0 left-0 right-0 z-[15] p-[calc(1.5rem+8px)_2rem_1.5rem_2rem] md:p-4 md:px-6 pointer-events-auto navbar transition-transform duration-300 ease-in-out ${
       isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
     }`}>
       <div className="grid grid-cols-[1fr_auto_1fr] items-center max-w-[1280px] mx-auto navbar-content">

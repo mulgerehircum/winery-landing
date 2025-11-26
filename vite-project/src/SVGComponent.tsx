@@ -122,16 +122,49 @@ const SVGComponent: React.FC<SVGComponentProps> = ({ brickImage, liquidHeight = 
       
       {/* Wine body gradient - Rich red gradient for depth */}
       <linearGradient id="wine-body-gradient" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="#d11d2e" />
-        <stop offset="40%" stopColor="#bd0d1a" />
-        <stop offset="100%" stopColor="#5e020a" />
+        <stop offset="0%" stopColor="#8a0d1c" />
+        <stop offset="50%" stopColor="#c11f2f" />
+        <stop offset="100%" stopColor="#e65455" />
       </linearGradient>
 
-      {/* Wine highlight - Soft pink/white reflection */}
-      <radialGradient id="wine-highlight" cx="30%" cy="30%" r="40%">
-        <stop offset="0%" stopColor="#ff8a95" stopOpacity="0.4" />
-        <stop offset="100%" stopColor="#bd0d1a" stopOpacity="0" />
-      </radialGradient>
+      {/* Wine highlight - Soft pink/white reflection streak with curve */}
+      <linearGradient id="wine-highlight" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="#ffffff" stopOpacity="0.3" />
+        <stop offset="20%" stopColor="#ffffff" stopOpacity="0.3" />
+        <stop offset="50%" stopColor="#ffffff" stopOpacity="0.2" />
+        <stop offset="80%" stopColor="#ffffff" stopOpacity="0.1" />
+        <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+      </linearGradient>
+      
+      {/* Curved highlight mask for streak - longer vertically with slight curve */}
+      <mask id="highlight-mask">
+        <rect width="512" height="512" fill="black" />
+        {/* Main highlight streak - curved and elongated */}
+        <path
+          d="M 140 80 Q 155 200 145 320 Q 155 420 140 480"
+          stroke="white"
+          strokeWidth="50"
+          fill="none"
+          strokeLinecap="round"
+          opacity="0.9"
+        />
+        {/* Softer outer glow */}
+        <path
+          d="M 140 80 Q 155 200 145 320 Q 155 420 140 480"
+          stroke="white"
+          strokeWidth="70"
+          fill="none"
+          strokeLinecap="round"
+          opacity="0.4"
+        />
+      </mask>
+      
+      {/* Left inner wall shadow gradient */}
+      <linearGradient id="left-wall-shadow" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stopColor="rgba(0,0,0,0.1)" />
+        <stop offset="15%" stopColor="rgba(0,0,0,0.05)" />
+        <stop offset="30%" stopColor="rgba(0,0,0,0)" />
+      </linearGradient>
 
       {/* Liquid clip path from glass.svg */}
       <clipPath id="glass-liquid-clip" clipPathUnits="userSpaceOnUse">
@@ -146,10 +179,20 @@ const SVGComponent: React.FC<SVGComponentProps> = ({ brickImage, liquidHeight = 
            z" />
       </clipPath>
       
-      {/* Mask to control liquid height with animation */}
+      {/* Mask to control liquid height with animation - includes refraction dip */}
       <mask id="liquid-height-mask">
         <rect width="512" height="512" fill="black" />
         <g transform={`translate(0, ${liquidTopY})`}>
+          {/* Refraction dip path - very subtle curved surface near walls */}
+          <path d={`
+            M 0 0
+            Q 50 0.8 100 0
+            L 412 0
+            Q 462 0.8 512 0
+            L 512 512
+            L 0 512
+            Z
+          `} fill="white" />
           {/* Two overlapping waves for liquid effect */}
           <g className="liquid-wave-1">
              <path d={wavePath} fill="white" />
@@ -195,13 +238,24 @@ const SVGComponent: React.FC<SVGComponentProps> = ({ brickImage, liquidHeight = 
           height="512"
           fill="url(#wine-body-gradient)"
         />
-        {/* Wine highlight */}
+        {/* Wine highlight streak - curved reflection with fade */}
         <rect
           x="0"
           y="0"
           width="512"
           height="512"
           fill="url(#wine-highlight)"
+          mask="url(#highlight-mask)"
+          opacity="0.3"
+        />
+        
+        {/* Left inner wall shadow */}
+        <rect
+          x="0"
+          y="0"
+          width="150"
+          height="512"
+          fill="url(#left-wall-shadow)"
         />
         {/* Wine glow overlay for depth */}
         <rect
