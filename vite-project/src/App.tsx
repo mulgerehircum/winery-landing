@@ -208,6 +208,99 @@ function App() {
         <ContactSection />
       </section>
 
+      {/* Footer */}
+      <footer className="relative w-full bg-[#1a1a1a] text-white z-10 py-12 px-8 md:py-10 md:px-6 border-t border-white/30">
+        <div className="max-w-[1280px] mx-auto flex flex-col items-center gap-8 md:gap-6">
+          {/* IN VINO VERITAS Text */}
+          <div 
+            className="text-center pointer-events-auto select-none hero-text-container"
+            style={{ fontFamily: '"Playfair Display", serif' }}
+          >
+            <h2 className="text-5xl md:text-4xl font-bold tracking-[0.15em] leading-none hero-text">
+              <span className="hero-word" data-word="IN">IN</span>
+              {' '}
+              <span className="hero-word hero-word-vino" data-word="VINO">VINO</span>
+              {' '}
+              <span className="hero-word" data-word="VERITAS">VERITAS</span>
+            </h2>
+          </div>
+
+          {/* Divider */}
+          <div className="w-[60px] h-px bg-white/20"></div>
+
+          {/* Navigation Links */}
+          <nav className="flex items-center justify-center gap-4 md:gap-10 w-fit mx-auto">
+            {(['Wines', 'About', 'Contact'] as const).map((link) => (
+              <a 
+                key={link}
+                href="#" 
+                className={`font-['Playfair_Display',serif] text-base md:text-sm font-normal tracking-[0.08em] no-underline transition-colors duration-300 ease-in-out bg-transparent outline-none border-none cursor-pointer [-webkit-tap-highlight-color:transparent] ${
+                  activeLink === link 
+                    ? 'text-[#bd0d1a] [text-shadow:0_-8px_35px_rgba(189,13,26,0.5)]' 
+                    : 'text-[rgba(255,255,255,0.65)] [text-shadow:0_-8px_35px_rgba(255,255,255,0.25)] hover:text-[rgba(255,255,255,0.85)] hover:[text-shadow:0_-8px_35px_rgba(255,255,255,0.35)]'
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(link);
+                }}
+              >
+                {link}
+              </a>
+            ))}
+          </nav>
+
+          {/* Divider */}
+          <div className="w-[60px] h-px bg-white/20"></div>
+
+          {/* Social Media Links */}
+          <div className="flex items-center justify-center gap-6 md:gap-5">
+            <a 
+              href="https://andriiponomarenko.vercel.app/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/40 hover:text-white/70 transition-colors duration-300 ease-in-out no-underline"
+              aria-label="Instagram"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a 
+              href="https://andriiponomarenko.vercel.app/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/40 hover:text-white/70 transition-colors duration-300 ease-in-out no-underline"
+              aria-label="Facebook"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
+            </a>
+            <a 
+              href="https://andriiponomarenko.vercel.app/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/40 hover:text-white/70 transition-colors duration-300 ease-in-out no-underline"
+              aria-label="Twitter"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+              </svg>
+            </a>
+          </div>
+
+          {/* Divider */}
+          <div className="w-[60px] h-px bg-white/20"></div>
+
+          {/* Copyright */}
+          <p className="text-xs md:text-xs text-white/50 font-light m-0">
+            © {new Date().getFullYear()} Andrii Ponomarenko. All rights reserved.
+          </p>
+        </div>
+      </footer>
+
       {/* Spotlight Effect Layer */}
       <div 
         className="fixed inset-0 pointer-events-none hidden xl:block"
