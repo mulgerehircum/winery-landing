@@ -56,6 +56,96 @@ function App() {
     }
   }, []);
 
+  // Track which section is currently active based on scroll position
+  useEffect(() => {
+    const sections = [
+      { ref: winesSectionRef, name: 'Wines' as const },
+      { ref: aboutSectionRef, name: 'About' as const },
+      { ref: contactSectionRef, name: 'Contact' as const },
+    ];
+
+    const handleScroll = () => {
+      const scrollPosition = mainRef.current?.scrollTop || 0;
+      const viewportHeight = window.innerHeight;
+      
+      // Find which section is most visible in the viewport
+      let activeSection: 'Wines' | 'About' | 'Contact' | null = null;
+      let maxVisible = 0;
+
+      sections.forEach(({ ref, name }) => {
+        const element = ref.current;
+        if (!element) return;
+
+        const rect = element.getBoundingClientRect();
+        const mainRect = mainRef.current?.getBoundingClientRect();
+        if (!mainRect) return;
+
+        // Calculate visible portion of section
+        const elementTop = rect.top - mainRect.top + scrollPosition;
+        const elementBottom = elementTop + rect.height;
+        const viewportTop = scrollPosition;
+        const viewportBottom = scrollPosition + viewportHeight;
+
+        // Calculate intersection
+        const visibleTop = Math.max(elementTop, viewportTop);
+        const visibleBottom = Math.min(elementBottom, viewportBottom);
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+        const visibleRatio = visibleHeight / Math.min(rect.height, viewportHeight);
+
+        // Consider section active if more than 30% visible or closest to viewport center
+        if (visibleRatio > 0.3 && visibleRatio > maxVisible) {
+          maxVisible = visibleRatio;
+          activeSection = name;
+        }
+      });
+
+      // Fallback: check which section is closest to viewport center
+      if (!activeSection) {
+        const viewportCenter = scrollPosition + viewportHeight / 2;
+        let closestSection: 'Wines' | 'About' | 'Contact' | null = null;
+        let minDistance = Infinity;
+
+        sections.forEach(({ ref, name }) => {
+          const element = ref.current;
+          if (!element) return;
+
+          const rect = element.getBoundingClientRect();
+          const mainRect = mainRef.current?.getBoundingClientRect();
+          if (!mainRect) return;
+
+          const elementTop = rect.top - mainRect.top + scrollPosition;
+          const elementCenter = elementTop + rect.height / 2;
+          const distance = Math.abs(viewportCenter - elementCenter);
+
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestSection = name;
+          }
+        });
+
+        activeSection = closestSection;
+      }
+
+      if (activeSection) {
+        setActiveLink(activeSection);
+      }
+    };
+
+    const mainElement = mainRef.current;
+    if (mainElement) {
+      // Initial check
+      handleScroll();
+      
+      mainElement.addEventListener('scroll', handleScroll, { passive: true });
+      window.addEventListener('resize', handleScroll, { passive: true });
+      
+      return () => {
+        mainElement.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', handleScroll);
+      };
+    }
+  }, []);
+
   const scrollToSection = (section: 'Wines' | 'About' | 'Contact') => {
     let targetRef: HTMLElement | null = null;
     
